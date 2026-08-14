@@ -34,9 +34,9 @@ elements:
       color: "#B9C4D1"
       lineHeight: 1.9
       text: |
-        <p><span style="color:#7FB8A4;">本项目（MIT）　</span> <a href="https://github.com/JingHao-Leon/dsh-alpha-desk">github.com/JingHao-Leon/dsh-alpha-desk</a></p>
-        <p><span style="color:#7FB8A4;">配套教程　　　</span> <a href="https://github.com/JingHao-Leon/deepseek-harness-guide">github.com/JingHao-Leon/deepseek-harness-guide</a></p>
-        <p><span style="color:#7FB8A4;">引擎 / 运行时</span> <a href="https://github.com/virattt/ai-hedge-fund">virattt/ai-hedge-fund</a> × <a href="https://github.com/deepseek-ai/deepseek-harness">deepseek-ai/deepseek-harness</a></p>
+        <p><span style="color:#7FB8A4;">本项目（MIT）　</span> <span style="color:#DCE5EE;">github.com/JingHao-Leon/dsh-alpha-desk</span></p>
+        <p><span style="color:#7FB8A4;">配套教程　　　</span> <span style="color:#DCE5EE;">github.com/JingHao-Leon/deepseek-harness-guide</span></p>
+        <p><span style="color:#7FB8A4;">引擎 / 运行时</span> <span style="color:#DCE5EE;">virattt/ai-hedge-fund × deepseek-ai/deepseek-harness</span></p>
   - elementId: footer-line
     elementType: shape
     bounds: [64, 470, 832, 1]

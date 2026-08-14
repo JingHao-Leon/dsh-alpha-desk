@@ -5,3 +5,4 @@ dist/
 records/
 .env
 pitch/.qa-images/
+pitch/.qa-pptx/
