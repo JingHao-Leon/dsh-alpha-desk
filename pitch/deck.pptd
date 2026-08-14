@@ -1,0 +1,52 @@
+version: v2
+title: Alpha Desk — deepseek-harness AI 投研工作台
+size: [960, 540]
+customFonts:
+  - family: JetBrains Mono
+    src: "https://fonts.googleapis.com/css2?family=JetBrains+Mono"
+theme:
+  colors:
+    ink: "#17233B"
+    body: "#33404F"
+    muted: "#8A94A0"
+    primary: "#0C5B43"
+    accent: "#C2410C"
+    danger: "#B42318"
+    hairline: "#D8DEE4"
+    faint: "#F3F5F2"
+  textStyles:
+    pageTitle:
+      fontSize: 25
+      color: "$ink"
+      bold: true
+    kicker:
+      fontSize: 11
+      color: "$primary"
+      bold: true
+      letterSpacing: 2
+    body:
+      fontSize: 14
+      color: "$body"
+      lineHeight: 1.6
+    small:
+      fontSize: 11
+      color: "$muted"
+      lineHeight: 1.5
+    code:
+      fontSize: 11
+      fontFamily: JetBrains Mono
+      color: "$body"
+      lineHeight: 1.55
+pages:
+  - pages/01_cover.page
+  - pages/02_problem.page
+  - pages/03_architecture.page
+  - pages/04_mandate.page
+  - pages/05_riskgate.page
+  - pages/06_loop.page
+  - pages/07_demo.page
+  - pages/08_comparison.page
+  - pages/09_whydsh.page
+  - pages/10_boundaries.page
+  - pages/11_roadmap.page
+  - pages/12_closing.page

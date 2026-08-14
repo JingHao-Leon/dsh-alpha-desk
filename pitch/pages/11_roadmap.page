@@ -1,0 +1,108 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: ROADMAP}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 从能用到好用：三个阶段}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: axis
+    elementType: shape
+    bounds: [80, 190, 800, 2]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: n1-dot
+    elementType: shape
+    bounds: [120, 183, 16, 16]
+    shapeName: ellipse
+    fill: {type: solid, color: "$primary"}
+  - elementId: n1-phase
+    elementType: text
+    bounds: [80, 150, 220, 20]
+    content: {fontSize: 13, color: "$primary", bold: true, wrap: false, text: "P0 · 已交付（2026-08）"}
+  - elementId: n1-body
+    elementType: text
+    bounds: [80, 216, 240, 150]
+    content:
+      fontSize: 12
+      color: "$body"
+      lineHeight: 1.65
+      text: |
+        <p>· alpha-desk skill（五个工作流）</p>
+        <p>· 三份开箱 mandate</p>
+        <p>· risk-gate 风控插件</p>
+        <p>· dsh 实测注入与引擎验证</p>
+        <p>· 双语 README / MIT 开源</p>
+  - elementId: n2-dot
+    elementType: shape
+    bounds: [440, 183, 16, 16]
+    shapeName: ellipse
+    fill: {type: solid, color: "#FFFFFF"}
+    border: {style: solid, width: 2, color: "$primary"}
+  - elementId: n2-phase
+    elementType: text
+    bounds: [400, 150, 220, 20]
+    content: {fontSize: 13, color: "$ink", bold: true, wrap: false, text: "P1 · 进行中"}
+  - elementId: n2-body
+    elementType: text
+    bounds: [400, 216, 240, 150]
+    content:
+      fontSize: 12
+      color: "$body"
+      lineHeight: 1.65
+      text: |
+        <p>· 引擎 MCP 化，跨框架复用</p>
+        <p>· A股引擎原生 skill 化</p>
+        <p>· headless（ACP）盘前扫描</p>
+        <p>· 回测报告自动生成与归档</p>
+  - elementId: n3-dot
+    elementType: shape
+    bounds: [760, 183, 16, 16]
+    shapeName: ellipse
+    fill: {type: solid, color: "#FFFFFF"}
+    border: {style: solid, width: 2, color: "$muted"}
+  - elementId: n3-phase
+    elementType: text
+    bounds: [720, 150, 220, 20]
+    content: {fontSize: 13, color: "$muted", bold: true, wrap: false, text: "P2 · 规划"}
+  - elementId: n3-body
+    elementType: text
+    bounds: [720, 216, 200, 150]
+    content:
+      fontSize: 12
+      color: "$body"
+      lineHeight: 1.65
+      text: |
+        <p>· 多基金组合与归因分析</p>
+        <p>· 策略模板市场</p>
+        <p>· paper-trading 只读对账</p>
+        <p>· 假设胜率统计看板</p>
+  - elementId: verdict-line
+    elementType: shape
+    bounds: [56, 420, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: verdict
+    elementType: text
+    bounds: [56, 438, 848, 44]
+    content:
+      fontSize: 13
+      color: "$body"
+      lineHeight: 1.6
+      text: |
+        <p>P0 已可装、可跑、可验证；P1 把编排层沉淀为跨框架公共件；</p>
+        <p>P2 让"被追责的观点"沉淀为可统计、可学习的策略资产。</p>
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "11"}

@@ -1,0 +1,57 @@
+pageType: cover
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: bg-alpha
+    elementType: text
+    bounds: [580, 40, 340, 440]
+    content:
+      align: [center, middle]
+      color: "#0C5B4312"
+      wrap: false
+      text: |
+        <p><span style="font-size:330px;">α</span></p>
+  - elementId: kicker
+    elementType: text
+    bounds: [64, 138, 560, 20]
+    content:
+      style: "$kicker"
+      wrap: false
+      text: DEEPSEEK-HARNESS · SKILL PACK · 参赛项目
+  - elementId: title
+    elementType: text
+    bounds: [64, 166, 620, 160]
+    content:
+      align: [left, top]
+      text: |
+        <p><span style="font-size:68px; color:$ink;"><strong>Alpha Desk</strong></span></p>
+        <p style="margin-top:10px"><span style="font-size:34px; color:$ink;">AI 投研工作台</span></p>
+  - elementId: rule
+    elementType: shape
+    bounds: [64, 352, 120, 4]
+    shapeName: rect
+    fill: {type: solid, color: "$primary"}
+  - elementId: subtitle
+    elementType: text
+    bounds: [64, 374, 620, 60]
+    content:
+      fontSize: 17
+      color: "$body"
+      lineHeight: 1.6
+      text: |
+        <p>把 deepseek-harness 会话变成合规、可复现、可追责的投研交易台</p>
+        <p><span style="color:$muted; font-size:13px;">多策略 AI 基金回测 · 风控合规门禁 · 定时盯盘 · 投资记忆复盘</span></p>
+  - elementId: footer-line
+    elementType: shape
+    bounds: [64, 486, 832, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: meta
+    elementType: text
+    bounds: [64, 498, 832, 18]
+    content:
+      style: "$small"
+      wrap: false
+      text: |
+        <p>github.com/JingHao-Leon/dsh-alpha-desk · MIT License · 2026-08 · 仅供学习研究，不构成投资建议</p>

@@ -1,0 +1,95 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: MECHANISM 2 · HOOK}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: "risk-gate：合规是架构保证，不是提示词约定"}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: left-body
+    elementType: text
+    bounds: [56, 126, 390, 210]
+    content:
+      style: "$body"
+      fontSize: 13
+      lineHeight: 1.65
+      text: |
+        <p>挂在 dsh 的 <span style="font-family:JetBrains Mono; font-size:11.5px; color:$primary;">tools/pre-execute</span> waterfall 上：每一次工具调用<strong>进入分发前</strong>，先过门禁。</p>
+        <p style="margin-top:10px"><strong>命中即单调拒绝（deny）：</strong></p>
+        <p>· 券商 CLI / API：IBKR、Alpaca、富途、老虎…</p>
+        <p>· 下单动词：place-order / submit-order…</p>
+        <p>· 凭证文件：<span style="font-family:JetBrains Mono; font-size:11px;">~/.hedge-fund/.env</span></p>
+        <p>· 实盘开关：<span style="font-family:JetBrains Mono; font-size:11px;">--live</span> 类参数</p>
+  - elementId: left-note-line
+    elementType: shape
+    bounds: [56, 356, 390, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: left-note
+    elementType: text
+    bounds: [56, 372, 390, 110]
+    content:
+      fontSize: 12
+      color: "$body"
+      lineHeight: 1.6
+      text: |
+        <p><strong>放行：</strong>aihf 全部只读 / 回测用法、数据查询、报告生成——投研流量零误伤。</p>
+        <p style="margin-top:8px"><span style="color:$danger;"><strong>即使模型被注入、被诱导、被越狱，实盘命令也到不了执行器。</strong></span>这是微内核 waterfall 的类型化决策，不依赖模型自觉。</p>
+  - elementId: code-panel
+    elementType: shape
+    bounds: [474, 126, 430, 300]
+    shapeName: rect
+    fill: {type: solid, color: "$faint"}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: code-head
+    elementType: text
+    bounds: [492, 138, 380, 16]
+    content: {fontSize: 10, color: "$muted", fontFamily: JetBrains Mono, wrap: false, text: plugins/risk-gate/index.ts}
+  - elementId: code
+    elementType: text
+    bounds: [492, 160, 396, 256]
+    content:
+      style: "$code"
+      fontSize: 10.5
+      text: |
+        <p><span style="color:$primary;">export const</span> name = <span style="color:$accent;">'alpha-desk-risk-gate'</span></p>
+        <p></p>
+        <p><span style="color:$primary;">export function</span> apply(ctx: Context) {</p>
+        <p>  ctx.on(<span style="color:$accent;">'tools/pre-execute'</span>,</p>
+        <p>    <span style="color:$primary;">async</span> (exec, next): Promise&lt;PreToolDecision&gt; =&gt; {</p>
+        <p>      <span style="color:$primary;">const</span> text = inspectableText(exec)</p>
+        <p>      <span style="color:$primary;">for</span> (<span style="color:$primary;">const</span> { pattern, label } <span style="color:$primary;">of</span> DENY_PATTERNS) {</p>
+        <p>        <span style="color:$primary;">if</span> (pattern.test(text)) {</p>
+        <p>          <span style="color:$primary;">return</span> { kind: <span style="color:$accent;">'deny'</span>,</p>
+        <p>            reason: <span style="color:$accent;">`risk-gate: blocked ${label}…`</span> }</p>
+        <p>        }</p>
+        <p>      }</p>
+        <p>      <span style="color:$primary;">return</span> next()  <span style="color:$muted;">// 投研流量放行</span></p>
+        <p>    })</p>
+        <p>}</p>
+  - elementId: code-caption
+    elementType: text
+    bounds: [474, 436, 430, 16]
+    content: {style: "$small", wrap: false, text: 完整实现见仓库 plugins/risk-gate/，含中英文拒绝原因}
+  - elementId: bottom-note
+    elementType: text
+    bounds: [56, 500, 760, 16]
+    content:
+      style: "$small"
+      wrap: false
+      text: |
+        <p>机制出处：dsh 官方文档 <a href="https://github.com/deepseek-ai/deepseek-harness">extension-cookbook</a> 的权限门禁范例 · deny 在分发前生效，不产生任何副作用</p>
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "05"}

@@ -1,0 +1,22 @@
+# Fundamental L/S — 市场中性多空基金
+# Five investor personas vote; the book nets to market-neutral.
+# Suitable for showing long/short reasoning, not just long-only picks.
+#
+#   aihf mandates/fundamental-ls-market-neutral.yaml --tickers AAPL,MSFT,NVDA,AMD,INTC --backtest
+#
+name: fundamental-ls-market-neutral
+strategies:
+  - name: fundamental-ls      # discretionary pod: market-neutral long/short
+    weight: 1.0
+    models:
+      - name: buffett
+      - name: munger
+      - name: graham
+      - name: lynch
+      - name: druckenmiller
+risk:
+  max_position_pct: 0.20      # tighter single-name cap for a L/S book
+  max_gross_exposure: 1.0
+capital: 250000
+rebalance: monthly
+benchmark: SPY

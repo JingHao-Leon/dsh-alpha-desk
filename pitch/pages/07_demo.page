@@ -1,0 +1,84 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: LIVE ON DSH}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 已跑通：skill 注入 dsh，引擎实测就绪}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: check-title
+    elementType: text
+    bounds: [56, 124, 400, 22]
+    content: {fontSize: 15, color: "$ink", bold: true, wrap: false, text: 本机实测清单（2026-08-14）}
+  - elementId: checks
+    elementType: text
+    bounds: [56, 154, 420, 240]
+    content:
+      style: "$body"
+      fontSize: 13
+      lineHeight: 1.7
+      text: |
+        <p><span style="color:$primary;"><strong>✓</strong></span> 引擎就绪：<span style="font-family:JetBrains Mono; font-size:11.5px;">aihf 2.2.0</span>（pipx 隔离安装）</p>
+        <p><span style="color:$primary;"><strong>✓</strong></span> 三份 mandate 全部通过解析校验</p>
+        <p><span style="color:$primary;"><strong>✓</strong></span> 缺 key 时错误路径清晰，不静默失败</p>
+        <p><span style="color:$primary;"><strong>✓</strong></span> dsh <span style="font-family:JetBrains Mono; font-size:11.5px;">skill.list</span> 已出现 <span style="font-family:JetBrains Mono; font-size:11.5px; color:$primary;">alpha-desk</span></p>
+        <p>　（<span style="font-family:JetBrains Mono; font-size:11px;">modelInvocable: true</span>，模型可自主调用）</p>
+        <p><span style="color:$primary;"><strong>✓</strong></span> DeepSeek 推理切换验证：<span style="font-family:JetBrains Mono; font-size:11px;">--model deepseek-v4-pro</span></p>
+  - elementId: left-note-line
+    elementType: shape
+    bounds: [56, 414, 420, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: left-note
+    elementType: text
+    bounds: [56, 428, 420, 60]
+    content:
+      fontSize: 12
+      color: "$body"
+      lineHeight: 1.6
+      text: |
+        <p>右图为 dsh Web 实操界面（本机 127.0.0.1:3080）：</p>
+        <p>skill 在会话内被注入、工具调用全程可视化——</p>
+        <p>投研过程的每一步都可回放、可审计。</p>
+  - elementId: shot
+    elementType: image
+    bounds: [500, 124, 404, 253]
+    src: media/dsh-agent-running.png
+    fit: {mode: cover}
+    crop: {top: 0.02, bottom: 0.02}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: shot-caption
+    elementType: text
+    bounds: [500, 384, 404, 16]
+    content: {style: "$small", align: [center, middle], wrap: false, text: "deepseek-harness Web 实操界面（真实截图）"}
+  - elementId: cmd-panel
+    elementType: shape
+    bounds: [500, 412, 404, 76]
+    shapeName: rect
+    fill: {type: solid, color: "$faint"}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: cmd
+    elementType: text
+    bounds: [514, 420, 380, 60]
+    content:
+      style: "$code"
+      fontSize: 10
+      text: |
+        <p><span style="color:$muted;"># 一句话触发完整投研周期</span></p>
+        <p>$ aihf mandates/deep-value-weekly.yaml \</p>
+        <p>    --tickers AAPL,MSFT,NVDA --backtest \</p>
+        <p>    --model deepseek-v4-pro --out records/b1.json</p>
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "07"}

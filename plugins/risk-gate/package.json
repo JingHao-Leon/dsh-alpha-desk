@@ -1,0 +1,12 @@
+{
+  "name": "@alpha-desk/risk-gate",
+  "version": "0.1.0",
+  "description": "Alpha Desk compliance gate for deepseek-harness: denies live-trading and credential-access tool calls at tools/pre-execute.",
+  "type": "module",
+  "main": "index.ts",
+  "license": "MIT",
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*",
+    "@deepseek-ai/dsh-tools": "*"
+  }
+}

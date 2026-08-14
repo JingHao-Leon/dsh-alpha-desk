@@ -1,0 +1,77 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: WHY DSH}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 一个项目，示范 dsh 微内核的四类扩展点}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: col1-head
+    elementType: text
+    bounds: [56, 124, 420, 22]
+    content: {fontSize: 15, color: "$ink", bold: true, wrap: false, text: 本项目用到的扩展点}
+  - elementId: col1-body
+    elementType: text
+    bounds: [56, 156, 420, 300]
+    content:
+      style: "$body"
+      fontSize: 12.5
+      lineHeight: 1.6
+      text: |
+        <p><span style="color:$primary;"><strong>skill</strong></span>　section + inject()，调用时注入工作流</p>
+        <p><span style="font-size:11px; color:$muted;">　→ SKILL.md：五个投研工作流 + 合规红线</span></p>
+        <p style="margin-top:9px"><span style="color:$primary;"><strong>hook</strong></span>　tools/pre-execute waterfall 门禁</p>
+        <p><span style="font-size:11px; color:$muted;">　→ risk-gate：实盘 / 凭证访问单调拒绝</span></p>
+        <p style="margin-top:9px"><span style="color:$primary;"><strong>cron</strong></span>　定时器触发，空闲时 followup 注入</p>
+        <p><span style="font-size:11px; color:$muted;">　→ 盘前扫描、周末复盘，无人值守</span></p>
+        <p style="margin-top:9px"><span style="color:$primary;"><strong>memory</strong></span>　section 提供方 + 工具</p>
+        <p><span style="font-size:11px; color:$muted;">　→ 投资假设台账，跨会话存续</span></p>
+  - elementId: divider
+    elementType: shape
+    bounds: [500, 124, 1, 330]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: col2-head
+    elementType: text
+    bounds: [532, 124, 372, 22]
+    content: {fontSize: 15, color: "$ink", bold: true, wrap: false, text: 微内核带来的组合红利}
+  - elementId: col2-body
+    elementType: text
+    bounds: [532, 156, 372, 300]
+    content:
+      style: "$body"
+      fontSize: 12.5
+      lineHeight: 1.6
+      text: |
+        <p>· <strong>零侵入</strong>：所有能力挂在公开扩展点，执行循环一行未改</p>
+        <p style="margin-top:8px">· <strong>生态复用</strong>：MCP server 一挂即插件，skill 与 Claude / Kimi 同构，存量技能直接可用</p>
+        <p style="margin-top:8px">· <strong>热重载</strong>：插件注册即 ctx.effect，改完即时生效，开发迭代快</p>
+        <p style="margin-top:8px">· <strong>可无头运行</strong>：ACP / JSON-RPC 驱动，盘前扫描不需要人坐在电脑前</p>
+  - elementId: verdict-line
+    elementType: shape
+    bounds: [56, 468, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: verdict
+    elementType: text
+    bounds: [56, 482, 848, 22]
+    content:
+      fontSize: 14
+      color: "$primary"
+      bold: true
+      wrap: false
+      text: "对评委的一句话：这不是'又一个 wrapper'，而是 dsh 扩展能力的一次全景实证。"
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "09"}

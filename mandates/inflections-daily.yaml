@@ -1,0 +1,20 @@
+# Inflections Daily — 拐点猎手，日频再平衡
+# Druckenmiller + Lynch: macro inflections and GARP growth, fast cadence.
+# A good stress test for the risk gate: daily cadence means the agent
+# proposes orders far more often.
+#
+#   aihf mandates/inflections-daily.yaml --tickers NVDA,AMD,TSLA --backtest --start 2025-06-01
+#
+name: inflections-daily
+strategies:
+  - name: inflections         # discretionary pod: macro inflection + GARP
+    weight: 1.0
+    models:
+      - name: druckenmiller
+      - name: lynch
+risk:
+  max_position_pct: 0.30
+  max_gross_exposure: 1.0
+capital: 100000
+rebalance: daily
+benchmark: QQQ

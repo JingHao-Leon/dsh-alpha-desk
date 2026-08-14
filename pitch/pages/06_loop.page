@@ -1,0 +1,155 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: MECHANISM 3 · CRON + MEMORY}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 持续投研：观点入册、定时检验、到期追责}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  # —— 四步闭环（chevron 流程）——
+  - elementId: step1
+    elementType: shape
+    bounds: [56, 140, 196, 64]
+    shapeName: homePlate
+    adjustments: [28000]
+    fill: {type: solid, color: "$primary"}
+  - elementId: step1-t
+    elementType: text
+    bounds: [66, 140, 170, 64]
+    content:
+      align: [left, middle]
+      text: |
+        <p><span style="font-size:13px; color:#FFFFFF;"><strong>① 盘前扫描</strong></span></p>
+        <p><span style="font-size:10px; color:#FFFFFFCC;">cron 定时触发，无人值守</span></p>
+  - elementId: step2
+    elementType: shape
+    bounds: [268, 140, 196, 64]
+    shapeName: homePlate
+    adjustments: [28000]
+    fill: {type: solid, color: "#17705244"}
+    border: {style: solid, width: 1, color: "$primary"}
+  - elementId: step2-t
+    elementType: text
+    bounds: [288, 140, 166, 64]
+    content:
+      align: [left, middle]
+      text: |
+        <p><span style="font-size:13px; color:$ink;"><strong>② 信号解读</strong></span></p>
+        <p><span style="font-size:10px; color:$muted;">aihf 真实计算，附大师理由</span></p>
+  - elementId: step3
+    elementType: shape
+    bounds: [480, 140, 196, 64]
+    shapeName: homePlate
+    adjustments: [28000]
+    fill: {type: solid, color: "#17705244"}
+    border: {style: solid, width: 1, color: "$primary"}
+  - elementId: step3-t
+    elementType: text
+    bounds: [500, 140, 166, 64]
+    content:
+      align: [left, middle]
+      text: |
+        <p><span style="font-size:13px; color:$ink;"><strong>③ 假设入册</strong></span></p>
+        <p><span style="font-size:10px; color:$muted;">memory 台账：方向/理由/失效条件</span></p>
+  - elementId: step4
+    elementType: shape
+    bounds: [692, 140, 196, 64]
+    shapeName: homePlate
+    adjustments: [28000]
+    fill: {type: solid, color: "$accent"}
+  - elementId: step4-t
+    elementType: text
+    bounds: [712, 140, 166, 64]
+    content:
+      align: [left, middle]
+      text: |
+        <p><span style="font-size:13px; color:#FFFFFF;"><strong>④ 到期复盘</strong></span></p>
+        <p><span style="font-size:10px; color:#FFFFFFCC;">对照 records 逐条判对错</span></p>
+  - elementId: loop-back
+    elementType: line
+    bounds: [154, 204, 640, 34]
+    viewBox: [640, 34]
+    points: "640,0 640,17 0,17 0,34"
+    curve: sharp
+    arrow: [null, arrow]
+    border: {style: dash, width: 1, color: "$muted"}
+  - elementId: loop-back-t
+    elementType: text
+    bounds: [380, 210, 200, 14]
+    content: {fontSize: 10, color: "$muted", wrap: false, text: 复盘结论回流，修正下一轮假设}
+  # —— 台账字段表 ——
+  - elementId: ledger-title
+    elementType: text
+    bounds: [56, 268, 500, 22]
+    content: {fontSize: 15, color: "$ink", bold: true, wrap: false, text: 投资假设台账（memory 中每条假设的字段）}
+  - elementId: ledger
+    elementType: table
+    bounds: [56, 298, 848, 110]
+    columnWidths: [0.12, 0.14, 0.34, 0.22, 0.18]
+    rowHeights: [0.42, 0.58]
+    rows:
+      - - text: "标的"
+          fill: {type: solid, color: "$faint"}
+          fontSize: 12
+          bold: true
+          color: "$ink"
+        - text: "方向与强度"
+          fill: {type: solid, color: "$faint"}
+          fontSize: 12
+          bold: true
+          color: "$ink"
+        - text: "理由（来自引擎 reasoning）"
+          fill: {type: solid, color: "$faint"}
+          fontSize: 12
+          bold: true
+          color: "$ink"
+        - text: "失效条件"
+          fill: {type: solid, color: "$faint"}
+          fontSize: 12
+          bold: true
+          color: "$ink"
+        - text: "到期判定"
+          fill: {type: solid, color: "$faint"}
+          fontSize: 12
+          bold: true
+          color: "$ink"
+      - - text: "字段示意"
+          fontSize: 11
+          color: "$muted"
+        - text: "字段示意"
+          fontSize: 11
+          color: "$muted"
+        - text: "字段示意：记录模型原文要点，便于复核"
+          fontSize: 11
+          color: "$muted"
+          align: [left, middle]
+        - text: "字段示意"
+          fontSize: 11
+          color: "$muted"
+        - text: "对 / 错 / 部分成立"
+          fontSize: 11
+          color: "$muted"
+  - elementId: verdict
+    elementType: text
+    bounds: [56, 448, 848, 40]
+    content:
+      fontSize: 13
+      color: "$body"
+      lineHeight: 1.6
+      text: |
+        <p>这是一次性问答和"工作台"的分水岭：<span style="color:$primary;"><strong>每个观点都留下凭据，每个凭据都被检验</strong></span>——</p>
+        <p>哪类假设胜率高、哪个模型在什么市况下靠谱，数据自己会说话。</p>
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "06"}

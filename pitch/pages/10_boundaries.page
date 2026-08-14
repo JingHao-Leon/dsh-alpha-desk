@@ -1,0 +1,117 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: BOUNDARIES}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 我们主动写清的边界与风险}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: b1-head
+    elementType: text
+    bounds: [56, 122, 150, 22]
+    content: {fontSize: 14, color: "$ink", bold: true, wrap: false, text: 数据覆盖}
+  - elementId: b1-desc
+    elementType: text
+    bounds: [216, 122, 688, 36]
+    content:
+      fontSize: 12.5
+      color: "$body"
+      lineHeight: 1.5
+      text: Financial Datasets 以美股为主；A股/港股联动本地技术分析技能。两边引擎与数据源不同，结论不直接互换。
+  - elementId: b1-line
+    elementType: shape
+    bounds: [56, 164, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: b2-head
+    elementType: text
+    bounds: [56, 178, 150, 22]
+    content: {fontSize: 14, color: "$ink", bold: true, wrap: false, text: 回测局限}
+  - elementId: b2-desc
+    elementType: text
+    bounds: [216, 178, 688, 36]
+    content:
+      fontSize: 12.5
+      color: "$body"
+      lineHeight: 1.5
+      text: 历史回测不代表未来收益；所有输出附"仅供学习研究，不构成投资建议"声明，skill 层强制执行。
+  - elementId: b2-line
+    elementType: shape
+    bounds: [56, 220, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: b3-head
+    elementType: text
+    bounds: [56, 234, 150, 22]
+    content: {fontSize: 14, color: "$ink", bold: true, wrap: false, text: 引擎版本}
+  - elementId: b3-desc
+    elementType: text
+    bounds: [216, 234, 688, 36]
+    content:
+      fontSize: 12.5
+      color: "$body"
+      lineHeight: 1.5
+      text: ai-hedge-fund 正向"持久化基金"架构重构中；本项目锁定已验证的 2.2.0，升级前重新回归测试。
+  - elementId: b3-line
+    elementType: shape
+    bounds: [56, 276, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: b4-head
+    elementType: text
+    bounds: [56, 290, 150, 22]
+    content: {fontSize: 14, color: "$ink", bold: true, wrap: false, text: 调用成本}
+  - elementId: b4-desc
+    elementType: text
+    bounds: [216, 290, 688, 36]
+    content:
+      fontSize: 12.5
+      color: "$body"
+      lineHeight: 1.5
+      text: LLM 信号消耗 API 额度，回测成本 ≈ 周期数 × 模型数 × 标的数（例：52 周 × 3 模型 × 3 票 ≈ 468 次）。skill 要求运行前先估算告知。
+  - elementId: b4-line
+    elementType: shape
+    bounds: [56, 332, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: b5-head
+    elementType: text
+    bounds: [56, 346, 150, 22]
+    content: {fontSize: 14, color: "$ink", bold: true, wrap: false, text: 产品定位}
+  - elementId: b5-desc
+    elementType: text
+    bounds: [216, 346, 688, 36]
+    content:
+      fontSize: 12.5
+      color: "$body"
+      lineHeight: 1.5
+      text: 纯投研环境，永不执行真实交易——由 risk-gate 在架构层强制，而非依赖使用者的自觉。
+  - elementId: b5-line
+    elementType: shape
+    bounds: [56, 388, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: verdict
+    elementType: text
+    bounds: [56, 414, 848, 44]
+    content:
+      fontSize: 13
+      color: "$body"
+      lineHeight: 1.6
+      text: |
+        <p>把边界写在明处，是金融工具的基本素养。</p>
+        <p><span style="color:$primary;"><strong>能清晰说出"我不做什么"的 Agent，才配被托付"做什么"。</strong></span></p>
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "10"}

@@ -1,0 +1,121 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content:
+      style: "$kicker"
+      wrap: false
+      text: THE PROBLEM
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content:
+      style: "$pageTitle"
+      wrap: false
+      text: 通用 Agent 做投研，缺的不是对话能力
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: p1-num
+    elementType: text
+    bounds: [56, 126, 44, 30]
+    content: {fontSize: 20, color: "$accent", bold: true, wrap: false, text: "01"}
+  - elementId: p1-head
+    elementType: text
+    bounds: [108, 124, 220, 24]
+    content: {fontSize: 16, color: "$ink", bold: true, wrap: false, text: "可复现的引擎"}
+  - elementId: p1-desc
+    elementType: text
+    bounds: [108, 150, 700, 40]
+    content:
+      fontSize: 13
+      color: "$body"
+      lineHeight: 1.5
+      text: 结论必须来自真实数据与真实计算，而不是模型即兴生成——没有引擎，所有"研报"都无法复核、无法追责。
+  - elementId: p1-line
+    elementType: shape
+    bounds: [56, 196, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: p2-num
+    elementType: text
+    bounds: [56, 214, 44, 30]
+    content: {fontSize: 20, color: "$accent", bold: true, wrap: false, text: "02"}
+  - elementId: p2-head
+    elementType: text
+    bounds: [108, 212, 220, 24]
+    content: {fontSize: 16, color: "$ink", bold: true, wrap: false, text: "合规边界"}
+  - elementId: p2-desc
+    elementType: text
+    bounds: [108, 238, 700, 40]
+    content:
+      fontSize: 13
+      color: "$body"
+      lineHeight: 1.5
+      text: Agent 的权限越来越大，"永远不碰真钱"必须是架构级保证——写在提示词里的约束，模型随时可以绕过。
+  - elementId: p2-line
+    elementType: shape
+    bounds: [56, 284, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: p3-num
+    elementType: text
+    bounds: [56, 302, 44, 30]
+    content: {fontSize: 20, color: "$accent", bold: true, wrap: false, text: "03"}
+  - elementId: p3-head
+    elementType: text
+    bounds: [108, 300, 220, 24]
+    content: {fontSize: 16, color: "$ink", bold: true, wrap: false, text: "持续性"}
+  - elementId: p3-desc
+    elementType: text
+    bounds: [108, 326, 700, 40]
+    content:
+      fontSize: 13
+      color: "$body"
+      lineHeight: 1.5
+      text: 投资观点要被记录、被定时检验、被事后追责——一次性问答不构成研究，没有台账就没有复盘。
+  - elementId: p3-line
+    elementType: shape
+    bounds: [56, 372, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: p4-num
+    elementType: text
+    bounds: [56, 390, 44, 30]
+    content: {fontSize: 20, color: "$accent", bold: true, wrap: false, text: "04"}
+  - elementId: p4-head
+    elementType: text
+    bounds: [108, 388, 220, 24]
+    content: {fontSize: 16, color: "$ink", bold: true, wrap: false, text: "多市场"}
+  - elementId: p4-desc
+    elementType: text
+    bounds: [108, 414, 700, 40]
+    content:
+      fontSize: 13
+      color: "$body"
+      lineHeight: 1.5
+      text: 美股、A股、港股各有数据源与交易逻辑——单一引擎覆盖不了，需要的是可组合的编排层。
+  - elementId: p4-line
+    elementType: shape
+    bounds: [56, 460, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: verdict
+    elementType: text
+    bounds: [56, 478, 848, 26]
+    content:
+      fontSize: 14
+      color: "$primary"
+      bold: true
+      wrap: false
+      text: Alpha Desk 的解法：用 deepseek-harness 的四个扩展点，一一补上这四块短板 →
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "02"}

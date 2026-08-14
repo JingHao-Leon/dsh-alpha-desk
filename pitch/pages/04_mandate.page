@@ -1,0 +1,93 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: MECHANISM 1 · SKILL}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 基金即数据：一个 YAML 定义整张交易台}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: left-body
+    elementType: text
+    bounds: [56, 126, 380, 240]
+    content:
+      style: "$body"
+      fontSize: 13
+      lineHeight: 1.65
+      text: |
+        <p><strong>mandate（基金委托书）</strong>把交易台写成声明式配置：</p>
+        <p style="margin-top:8px">· 策略 pod 与资金权重（价值 70% + 量化 30%）</p>
+        <p>· 大师 alpha 模型：格雷厄姆 / 巴菲特 / 芒格 / 林奇 / 德鲁肯米勒</p>
+        <p>· 风控限额：单票 ≤25%、不加杠杆</p>
+        <p>· 再平衡频率与业绩基准</p>
+        <p style="margin-top:10px">标的不写进 mandate——<span style="color:$accent;"><strong>--tickers 运行时注入</strong></span>，同一交易台可指向任意股票池。</p>
+  - elementId: left-note-line
+    elementType: shape
+    bounds: [56, 392, 380, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: left-note
+    elementType: text
+    bounds: [56, 406, 380, 80]
+    content:
+      fontSize: 12
+      color: "$body"
+      lineHeight: 1.6
+      text: |
+        <p><strong>推理 LLM 可换：</strong>默认 Claude；</p>
+        <p>配 <span style="font-family:JetBrains Mono; font-size:11px;">DEEPSEEK_API_KEY</span> 后加 <span style="font-family:JetBrains Mono; font-size:11px; color:$primary;">--model deepseek-v4-pro</span>，即"DeepSeek 模型 × DeepSeek harness"全栈同栈。</p>
+  - elementId: code-panel
+    elementType: shape
+    bounds: [464, 126, 440, 330]
+    shapeName: rect
+    fill: {type: solid, color: "$faint"}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: code-head
+    elementType: text
+    bounds: [482, 138, 400, 16]
+    content: {fontSize: 10, color: "$muted", fontFamily: JetBrains Mono, wrap: false, text: mandates/deep-value-weekly.yaml}
+  - elementId: code
+    elementType: text
+    bounds: [482, 160, 404, 286]
+    content:
+      style: "$code"
+      fontSize: 10.5
+      text: |
+        <p><span style="color:$primary;">name:</span> deep-value-weekly</p>
+        <p><span style="color:$primary;">strategies:</span></p>
+        <p>  - <span style="color:$primary;">name:</span> deep-value       <span style="color:$muted;"># 价值 pod</span></p>
+        <p>    <span style="color:$primary;">weight:</span> 0.7</p>
+        <p>    <span style="color:$primary;">models:</span></p>
+        <p>      - {<span style="color:$primary;">name:</span> graham, <span style="color:$primary;">weight:</span> 2.0}</p>
+        <p>      - {<span style="color:$primary;">name:</span> buffett}</p>
+        <p>      - {<span style="color:$primary;">name:</span> munger}</p>
+        <p>  - <span style="color:$primary;">name:</span> earnings-drift  <span style="color:$muted;"># 量化 pod</span></p>
+        <p>    <span style="color:$primary;">weight:</span> 0.3</p>
+        <p>    <span style="color:$primary;">models:</span> [{<span style="color:$primary;">name:</span> pead}]</p>
+        <p><span style="color:$primary;">risk:</span></p>
+        <p>  <span style="color:$primary;">max_position_pct:</span> 0.25</p>
+        <p>  <span style="color:$primary;">max_gross_exposure:</span> 1.0</p>
+        <p><span style="color:$primary;">capital:</span> 100000</p>
+        <p><span style="color:$primary;">rebalance:</span> weekly</p>
+        <p><span style="color:$primary;">benchmark:</span> SPY</p>
+  - elementId: bottom-note
+    elementType: text
+    bounds: [56, 500, 700, 16]
+    content:
+      style: "$small"
+      wrap: false
+      text: |
+        <p>引擎：<a href="https://github.com/virattt/ai-hedge-fund">virattt/ai-hedge-fund</a>（MIT）· 仓库另附多空市场中性、宏观拐点两份 mandate，开箱即用</p>
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "04"}

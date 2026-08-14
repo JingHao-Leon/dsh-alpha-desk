@@ -1,0 +1,52 @@
+pageType: final
+background:
+  type: solid
+  color: "$ink"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [64, 120, 500, 18]
+    content:
+      fontSize: 11
+      color: "#7FB8A4"
+      bold: true
+      letterSpacing: 2
+      wrap: false
+      text: CLOSING
+  - elementId: statement
+    elementType: text
+    bounds: [64, 152, 832, 110]
+    content:
+      align: [left, top]
+      text: |
+        <p><span style="font-size:38px; color:#FFFFFF;"><strong>引擎可复现 · 合规可证明 · 观点可追溯</strong></span></p>
+        <p style="margin-top:14px"><span style="font-size:17px; color:#B9C4D1;">这就是 Agent 时代投研工具该有的样子。</span></p>
+  - elementId: rule
+    elementType: shape
+    bounds: [64, 292, 120, 4]
+    shapeName: rect
+    fill: {type: solid, color: "$primary"}
+  - elementId: links
+    elementType: text
+    bounds: [64, 318, 832, 120]
+    content:
+      fontSize: 13
+      color: "#B9C4D1"
+      lineHeight: 1.9
+      text: |
+        <p><span style="color:#7FB8A4;">本项目（MIT）　</span> <a href="https://github.com/JingHao-Leon/dsh-alpha-desk">github.com/JingHao-Leon/dsh-alpha-desk</a></p>
+        <p><span style="color:#7FB8A4;">配套教程　　　</span> <a href="https://github.com/JingHao-Leon/deepseek-harness-guide">github.com/JingHao-Leon/deepseek-harness-guide</a></p>
+        <p><span style="color:#7FB8A4;">引擎 / 运行时</span> <a href="https://github.com/virattt/ai-hedge-fund">virattt/ai-hedge-fund</a> × <a href="https://github.com/deepseek-ai/deepseek-harness">deepseek-ai/deepseek-harness</a></p>
+  - elementId: footer-line
+    elementType: shape
+    bounds: [64, 470, 832, 1]
+    shapeName: rect
+    fill: {type: solid, color: "#33404F"}
+  - elementId: disclaimer
+    elementType: text
+    bounds: [64, 484, 832, 16]
+    content:
+      fontSize: 10.5
+      color: "#8A94A0"
+      wrap: false
+      text: 本项目仅供学习研究，不构成投资建议 · 永不执行真实交易 · 回测结果不代表未来收益

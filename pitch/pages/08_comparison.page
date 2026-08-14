@@ -1,0 +1,144 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: COMPARISON}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 同一件事，三种做法的结构性差异}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: cmp
+    elementType: table
+    bounds: [56, 126, 848, 300]
+    columnWidths: [0.16, 0.32, 0.27, 0.25]
+    rowHeights: [0.14, 0.172, 0.172, 0.172, 0.172, 0.172]
+    rows:
+      - - text: "能力"
+          fill: {type: solid, color: "$ink"}
+          color: "#FFFFFF"
+          fontSize: 12
+          bold: true
+        - text: "Alpha Desk（dsh skill 包）"
+          fill: {type: solid, color: "$ink"}
+          color: "#FFFFFF"
+          fontSize: 12
+          bold: true
+        - text: "LangChain / CrewAI 编排"
+          fill: {type: solid, color: "$ink"}
+          color: "#FFFFFF"
+          fontSize: 12
+          bold: true
+        - text: "通用编码 Agent + 提示词"
+          fill: {type: solid, color: "$ink"}
+          color: "#FFFFFF"
+          fontSize: 12
+          bold: true
+      - - text: "合规边界"
+          fontSize: 12
+          bold: true
+          color: "$ink"
+          fill: {type: solid, color: "$faint"}
+        - text: "架构级：hook 在工具分发前单调拒绝"
+          fontSize: 11.5
+          color: "$primary"
+          align: [left, middle]
+        - text: "需自行包装执行器"
+          fontSize: 11.5
+          align: [left, middle]
+        - text: "仅靠提示词，模型可绕过"
+          fontSize: 11.5
+          color: "$danger"
+          align: [left, middle]
+      - - text: "投研引擎"
+          fontSize: 12
+          bold: true
+          color: "$ink"
+          fill: {type: solid, color: "$faint"}
+        - text: "成熟开源基金引擎，JSON 输出可复现"
+          fontSize: 11.5
+          color: "$primary"
+          align: [left, middle]
+        - text: "自行拼装数据与策略"
+          fontSize: 11.5
+          align: [left, middle]
+        - text: "模型即兴生成，无法复核"
+          fontSize: 11.5
+          color: "$danger"
+          align: [left, middle]
+      - - text: "定时盯盘"
+          fontSize: 12
+          bold: true
+          color: "$ink"
+          fill: {type: solid, color: "$faint"}
+        - text: "cron 扩展点，声明式注册"
+          fontSize: 11.5
+          color: "$primary"
+          align: [left, middle]
+        - text: "需接外部调度器"
+          fontSize: 11.5
+          align: [left, middle]
+        - text: "无"
+          fontSize: 11.5
+          color: "$danger"
+          align: [left, middle]
+      - - text: "观点追责"
+          fontSize: 12
+          bold: true
+          color: "$ink"
+          fill: {type: solid, color: "$faint"}
+        - text: "memory 台账 + 落盘记录，到期自动复盘"
+          fontSize: 11.5
+          color: "$primary"
+          align: [left, middle]
+        - text: "需自建状态层"
+          fontSize: 11.5
+          align: [left, middle]
+        - text: "无"
+          fontSize: 11.5
+          color: "$danger"
+          align: [left, middle]
+      - - text: "扩展生态"
+          fontSize: 12
+          bold: true
+          color: "$ink"
+          fill: {type: solid, color: "$faint"}
+        - text: "MCP / skill 生态直接复用，插件热重载"
+          fontSize: 11.5
+          color: "$primary"
+          align: [left, middle]
+        - text: "生态大但需自行整合"
+          fontSize: 11.5
+          align: [left, middle]
+        - text: "依赖宿主能力，不可控"
+          fontSize: 11.5
+          align: [left, middle]
+  - elementId: verdict
+    elementType: text
+    bounds: [56, 448, 848, 22]
+    content:
+      fontSize: 14
+      color: "$primary"
+      bold: true
+      wrap: false
+      text: 差异不在"能不能做"，在"保证由谁提供"——框架提供，还是你自己补。
+  - elementId: bottom-note
+    elementType: text
+    bounds: [56, 500, 760, 16]
+    content:
+      style: "$small"
+      wrap: false
+      text: |
+        <p>机制引用：<a href="https://github.com/deepseek-ai/deepseek-harness">deepseek-harness 官方文档</a>（extension-cookbook / 功能→机制映射表）</p>
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "08"}

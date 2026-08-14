@@ -1,0 +1,267 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: ARCHITECTURE}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 方案总览：skill 编排引擎，hook 守住底线}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  # —— 上层：注入与依赖 ——
+  - elementId: node-skill
+    elementType: shape
+    bounds: [226, 128, 140, 48]
+    shapeName: rect
+    fill: {type: solid, color: "#FFFFFF"}
+    border: {style: dash, width: 1, color: "$primary"}
+  - elementId: node-skill-t
+    elementType: text
+    bounds: [226, 128, 140, 48]
+    content:
+      align: [center, middle]
+      text: |
+        <p style="text-align:center"><span style="font-size:12px; color:$ink;"><strong>SKILL.md</strong></span></p>
+        <p style="text-align:center"><span style="font-size:10px; color:$muted;">本仓库 · 投研工作流</span></p>
+  - elementId: arr-skill
+    elementType: line
+    bounds: [296, 176, 1, 49]
+    viewBox: [1, 49]
+    points: "0,0 0,49"
+    curve: sharp
+    arrow: [null, arrow]
+    border: {style: dash, width: 1, color: "$primary"}
+  - elementId: arr-skill-t
+    elementType: text
+    bounds: [306, 188, 90, 14]
+    content: {fontSize: 10, color: "$primary", wrap: false, text: inject 注入}
+  - elementId: node-data
+    elementType: shape
+    bounds: [500, 128, 140, 48]
+    shapeName: rect
+    fill: {type: solid, color: "#FFFFFF"}
+    border: {style: dash, width: 1, color: "$muted"}
+  - elementId: node-data-t
+    elementType: text
+    bounds: [500, 128, 140, 48]
+    content:
+      align: [center, middle]
+      text: |
+        <p style="text-align:center"><span style="font-size:12px; color:$ink;"><strong>Financial Datasets</strong></span></p>
+        <p style="text-align:center"><span style="font-size:10px; color:$muted;">外部数据源 · 美股为主</span></p>
+  - elementId: arr-data
+    elementType: line
+    bounds: [570, 176, 1, 49]
+    viewBox: [1, 49]
+    points: "0,0 0,49"
+    curve: sharp
+    arrow: [null, arrow]
+    border: {style: dash, width: 1, color: "$muted"}
+  # —— 主链路 ——
+  - elementId: node-user
+    elementType: shape
+    bounds: [56, 225, 110, 56]
+    shapeName: rect
+    fill: {type: solid, color: "#FFFFFF"}
+    border: {style: solid, width: 1, color: "#9AA5B1"}
+  - elementId: node-user-t
+    elementType: text
+    bounds: [56, 225, 110, 56]
+    content:
+      align: [center, middle]
+      text: |
+        <p style="text-align:center"><span style="font-size:12px; color:$ink;"><strong>用户</strong></span></p>
+        <p style="text-align:center"><span style="font-size:10px; color:$muted;">自然语言指令</span></p>
+  - elementId: arr-ua
+    elementType: line
+    bounds: [166, 253, 60, 1]
+    viewBox: [60, 1]
+    points: "0,0 60,0"
+    curve: sharp
+    arrow: [null, arrow]
+    border: {style: solid, width: 1.5, color: "$body"}
+  - elementId: node-agent
+    elementType: shape
+    bounds: [226, 225, 140, 56]
+    shapeName: rect
+    fill: {type: solid, color: "$faint"}
+    border: {style: solid, width: 1.5, color: "$ink"}
+  - elementId: node-agent-t
+    elementType: text
+    bounds: [226, 225, 140, 56]
+    content:
+      align: [center, middle]
+      text: |
+        <p style="text-align:center"><span style="font-size:12px; color:$ink;"><strong>dsh Agent</strong></span></p>
+        <p style="text-align:center"><span style="font-size:10px; color:$muted;">deepseek-harness</span></p>
+  - elementId: arr-ag
+    elementType: line
+    bounds: [366, 253, 54, 1]
+    viewBox: [54, 1]
+    points: "0,0 54,0"
+    curve: sharp
+    arrow: [null, arrow]
+    border: {style: solid, width: 1.5, color: "$body"}
+  - elementId: arr-ag-t
+    elementType: text
+    bounds: [360, 234, 70, 14]
+    content: {fontSize: 10, color: "$muted", wrap: false, text: 工具调用}
+  - elementId: gate
+    elementType: shape
+    bounds: [420, 213, 20, 80]
+    shapeName: rect
+    fill: {type: solid, color: "$danger"}
+  - elementId: gate-label
+    elementType: text
+    bounds: [350, 192, 180, 16]
+    content:
+      fontSize: 10
+      color: "$danger"
+      bold: true
+      align: [center, middle]
+      wrap: false
+      text: risk-gate · tools/pre-execute
+  - elementId: arr-gai
+    elementType: line
+    bounds: [440, 253, 60, 1]
+    viewBox: [60, 1]
+    points: "0,0 60,0"
+    curve: sharp
+    arrow: [null, arrow]
+    border: {style: solid, width: 1.5, color: "$body"}
+  - elementId: gate-deny
+    elementType: text
+    bounds: [340, 302, 180, 14]
+    content:
+      fontSize: 10
+      color: "$danger"
+      align: [center, middle]
+      wrap: false
+      text: 实盘下单 / 券商 API / 凭证 → deny
+  - elementId: node-aihf
+    elementType: shape
+    bounds: [500, 225, 140, 56]
+    shapeName: rect
+    fill: {type: solid, color: "#FFFFFF"}
+    border: {style: solid, width: 1, color: "#9AA5B1"}
+  - elementId: node-aihf-t
+    elementType: text
+    bounds: [500, 225, 140, 56]
+    content:
+      align: [center, middle]
+      text: |
+        <p style="text-align:center"><span style="font-size:12px; color:$ink;"><strong>aihf CLI</strong></span></p>
+        <p style="text-align:center"><span style="font-size:10px; color:$muted;">ai-hedge-fund 引擎</span></p>
+  - elementId: arr-ar
+    elementType: line
+    bounds: [640, 253, 60, 1]
+    viewBox: [60, 1]
+    points: "0,0 60,0"
+    curve: sharp
+    arrow: [null, arrow]
+    border: {style: solid, width: 1.5, color: "$body"}
+  - elementId: arr-ar-t
+    elementType: text
+    bounds: [632, 234, 60, 14]
+    content: {fontSize: 10, color: "$muted", wrap: false, text: 纯 JSON}
+  - elementId: node-rec
+    elementType: shape
+    bounds: [700, 225, 150, 56]
+    shapeName: rect
+    fill: {type: solid, color: "#FFFFFF"}
+    border: {style: solid, width: 1, color: "#9AA5B1"}
+  - elementId: node-rec-t
+    elementType: text
+    bounds: [700, 225, 150, 56]
+    content:
+      align: [center, middle]
+      text: |
+        <p style="text-align:center"><span style="font-size:12px; color:$ink;"><strong>records/*.json</strong></span></p>
+        <p style="text-align:center"><span style="font-size:10px; color:$muted;">落盘 · 可复核</span></p>
+  # —— 下层：cron 与 memory ——
+  - elementId: node-cron
+    elementType: shape
+    bounds: [226, 350, 140, 48]
+    shapeName: rect
+    fill: {type: solid, color: "#FFFFFF"}
+    border: {style: solid, width: 1, color: "$primary"}
+  - elementId: node-cron-t
+    elementType: text
+    bounds: [226, 350, 140, 48]
+    content:
+      align: [center, middle]
+      text: |
+        <p style="text-align:center"><span style="font-size:12px; color:$ink;"><strong>cron 定时任务</strong></span></p>
+        <p style="text-align:center"><span style="font-size:10px; color:$muted;">盘前扫描 / 周末复盘</span></p>
+  - elementId: arr-cron
+    elementType: line
+    bounds: [296, 281, 1, 69]
+    viewBox: [1, 69]
+    points: "0,69 0,0"
+    curve: sharp
+    arrow: [null, arrow]
+    border: {style: solid, width: 1, color: "$primary"}
+  - elementId: arr-cron-t
+    elementType: text
+    bounds: [214, 306, 78, 14]
+    content: {fontSize: 10, color: "$primary", align: [right, middle], wrap: false, text: 定时 followup}
+  - elementId: node-mem
+    elementType: shape
+    bounds: [560, 350, 140, 48]
+    shapeName: rect
+    fill: {type: solid, color: "#FFFFFF"}
+    border: {style: solid, width: 1, color: "$primary"}
+  - elementId: node-mem-t
+    elementType: text
+    bounds: [560, 350, 140, 48]
+    content:
+      align: [center, middle]
+      text: |
+        <p style="text-align:center"><span style="font-size:12px; color:$ink;"><strong>memory 台账</strong></span></p>
+        <p style="text-align:center"><span style="font-size:10px; color:$muted;">投资假设 · 到期追责</span></p>
+  - elementId: arr-rec-mem
+    elementType: line
+    bounds: [700, 281, 75, 93]
+    viewBox: [75, 93]
+    points: "75,0 75,46 0,93"
+    curve: sharp
+    arrow: [null, arrow]
+    border: {style: solid, width: 1, color: "$primary"}
+  - elementId: arr-rm-t
+    elementType: text
+    bounds: [706, 316, 80, 14]
+    content: {fontSize: 10, color: "$primary", wrap: false, text: 复盘对照}
+  # —— 图例与结论 ——
+  - elementId: legend-line
+    elementType: shape
+    bounds: [56, 440, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: legend
+    elementType: text
+    bounds: [56, 454, 620, 16]
+    content:
+      style: "$small"
+      wrap: false
+      text: 实线 = 数据/控制流 · 虚线 = 注入与外部依赖 · 红色 = 风控拦截点（分发前单调拒绝）
+  - elementId: takeaway
+    elementType: text
+    bounds: [56, 482, 848, 22]
+    content:
+      fontSize: 14
+      color: "$primary"
+      bold: true
+      wrap: false
+      text: 全部能力挂在 dsh 公开扩展点上——没有一行代码修改 Agent 执行循环。
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "03"}
