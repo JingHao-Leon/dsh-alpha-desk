@@ -39,22 +39,22 @@ elements:
         - text: 立场*
         - text: 核心理由（AAPL 示例）
       - - text: 格雷厄姆
-        - text: "<span style='color:#2ebd85;'>看空 -0.35</span>"
+        - {text: "看空 -0.35", color: "#2ebd85"}
         - text: 估值无安全边际，不符合防御型标准
       - - text: 巴菲特
-        - text: "<span style='color:#e54545;'>看多 +0.75</span>"
+        - {text: "看多 +0.75", color: "#e54545"}
         - text: 生态锁定现金流，回购缩减股本
       - - text: 芒格
-        - text: "<span style='color:#e54545;'>看多 +0.50</span>"
+        - {text: "看多 +0.50", color: "#e54545"}
         - text: 品牌+理性回购，警惕监管反身性
       - - text: 彼得·林奇
-        - text: "<span style='color:#e54545;'>看多 +0.30</span>"
+        - {text: "看多 +0.30", color: "#e54545"}
         - text: 稳健增长股，PEG 偏贵但可跟踪
       - - text: 德鲁肯米勒
-        - text: "<span style='color:#e54545;'>看多 +0.20</span>"
+        - {text: "看多 +0.20", color: "#e54545"}
         - text: 防御配置价值，等待宏观赔率
       - - text: 财报漂移(量化)
-        - text: "<span style='color:#e54545;'>看多 +0.25</span>"
+        - {text: "看多 +0.25", color: "#e54545"}
         - text: SUE 61 分位，公告后漂移温和为正
   - elementId: table-note
     elementType: text
