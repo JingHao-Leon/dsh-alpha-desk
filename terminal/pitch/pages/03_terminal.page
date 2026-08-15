@@ -1,0 +1,54 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: TERMINAL}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 四区同屏：行情、对话、K线、专家团}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: shot
+    elementType: image
+    bounds: [56, 124, 560, 278]
+    src: media/terminal-experts.png
+    fit: {mode: cover}
+    crop: {left: 0.005, right: 0.005}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: shot-caption
+    elementType: text
+    bounds: [56, 408, 560, 14]
+    content: {style: "$small", align: [center, middle], wrap: false, text: "真实运行截图（2026-08-15，A股盘后数据）"}
+  - elementId: callouts
+    elementType: text
+    bounds: [648, 124, 256, 300]
+    content:
+      style: "$body"
+      fontSize: 12.5
+      lineHeight: 1.65
+      text: |
+        <p><span style="color:$primary;"><strong>① 自选报价</strong></span>　红涨绿跌，WebSocket 每 15 秒推送，支持增删标的</p>
+        <p style="margin-top:10px"><span style="color:$primary;"><strong>② agent 对话</strong></span>　选中标的直接提问，回答自动附免责声明与运行轨迹</p>
+        <p style="margin-top:10px"><span style="color:$primary;"><strong>③ K线</strong></span>　日K / 60 / 15 / 5 分钟切换，MA5-60 + 成交量副图</p>
+        <p style="margin-top:10px"><span style="color:$primary;"><strong>④ 报价明细 × 专家团</strong></span>　右侧双 tab：盘口十二项指标，或召开多大师研讨会</p>
+  - elementId: callout-rule
+    elementType: shape
+    bounds: [648, 440, 256, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: callout-note
+    elementType: text
+    bounds: [648, 452, 256, 56]
+    content: {style: "$small", text: 状态栏常驻提示：数据源、agent 栈构成与免责声明，界面任何角落都不脱离合规语境。}
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "03"}

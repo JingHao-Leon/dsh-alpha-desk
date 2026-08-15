@@ -1,0 +1,87 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: EXPERT PANEL}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 专家团：六位大师同席，分歧摆上台面}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: lead
+    elementType: text
+    bounds: [56, 124, 560, 44]
+    content:
+      style: "$body"
+      fontSize: 13
+      text: |
+        <p>底层是 ai-hedge-fund 的多模型架构：每位大师独立给出 [-1, 1] 多空信号与文字理由，组合经理再汇总成仓位。终端把这个过程做成了可视化面板。</p>
+  - elementId: table
+    elementType: table
+    bounds: [56, 180, 560, 210]
+    columnWidths: [0.26, 0.2, 0.54]
+    rowHeights: [0.16, 0.14, 0.14, 0.14, 0.14, 0.14, 0.14]
+    style:
+      cellStyle: {fontSize: 11.5, color: "$body", align: [left, middle]}
+      firstRowStyle: {bold: true, color: "$muted", fontSize: 11, border: [null, null, {style: solid, width: 1, color: "$hairline"}, null]}
+      bodyStyles:
+        - {border: [null, null, {style: solid, width: 1, color: "$faint"}, null]}
+    rows:
+      - - text: 模型
+        - text: 立场*
+        - text: 核心理由（AAPL 示例）
+      - - text: 格雷厄姆
+        - text: "<span style='color:#2ebd85;'>看空 -0.35</span>"
+        - text: 估值无安全边际，不符合防御型标准
+      - - text: 巴菲特
+        - text: "<span style='color:#e54545;'>看多 +0.75</span>"
+        - text: 生态锁定现金流，回购缩减股本
+      - - text: 芒格
+        - text: "<span style='color:#e54545;'>看多 +0.50</span>"
+        - text: 品牌+理性回购，警惕监管反身性
+      - - text: 彼得·林奇
+        - text: "<span style='color:#e54545;'>看多 +0.30</span>"
+        - text: 稳健增长股，PEG 偏贵但可跟踪
+      - - text: 德鲁肯米勒
+        - text: "<span style='color:#e54545;'>看多 +0.20</span>"
+        - text: 防御配置价值，等待宏观赔率
+      - - text: 财报漂移(量化)
+        - text: "<span style='color:#e54545;'>看多 +0.25</span>"
+        - text: SUE 61 分位，公告后漂移温和为正
+  - elementId: table-note
+    elementType: text
+    bounds: [56, 396, 560, 30]
+    content: {style: "$small", text: "*未配 FINANCIAL_DATASETS_API_KEY 时展示内置示例数据并在界面明确标注；配 key 后同一按钮即为真实 aihf 推理，结果落盘 records/ 供复盘。"}
+  - elementId: points
+    elementType: text
+    bounds: [56, 436, 560, 60]
+    content:
+      style: "$body"
+      fontSize: 12.5
+      lineHeight: 1.65
+      text: |
+        <p>· 每位专家一张卡：平均立场 + 强度条 + 逐标的理由，<strong>分歧不被和稀泥</strong></p>
+        <p>· 底部附组合经理结论：action 与目标权重，信号到仓位的链路完整可见</p>
+  - elementId: shot
+    elementType: image
+    bounds: [648, 124, 256, 360]
+    src: media/experts-panel.png
+    fit: {mode: cover}
+    crop: {top: 0.0, bottom: 0.0}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: shot-caption
+    elementType: text
+    bounds: [648, 490, 256, 14]
+    content: {style: "$small", align: [center, middle], wrap: false, text: "专家团面板实拍"}
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "04"}

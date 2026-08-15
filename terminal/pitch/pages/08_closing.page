@@ -1,0 +1,64 @@
+pageType: final
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 120, 400, 16]
+    content: {style: "$kicker", wrap: false, text: ALPHA-DESK TERMINAL}
+  - elementId: title
+    elementType: text
+    bounds: [56, 148, 848, 50]
+    content:
+      fontSize: 30
+      color: "$ink"
+      bold: true
+      wrap: false
+      text: 投研的每一步，都应该看得见、数得清
+  - elementId: sub
+    elementType: text
+    bounds: [56, 210, 848, 28]
+    content:
+      style: "$body"
+      fontSize: 14
+      wrap: false
+      text: 专家团让观点有分歧、有理由；运行轨迹让 token 有账可查。
+  - elementId: repo-panel
+    elementType: shape
+    bounds: [56, 262, 420, 64]
+    shapeName: rect
+    fill: {type: solid, color: "$faint"}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: repo
+    elementType: text
+    bounds: [72, 272, 392, 44]
+    content:
+      style: "$code"
+      fontSize: 12
+      lineHeight: 1.6
+      text: |
+        <p><span style="color:$muted;"># 代码与文档</span></p>
+        <p>github.com/JingHao-Leon/dsh-alpha-desk</p>
+  - elementId: roadmap
+    elementType: text
+    bounds: [56, 352, 848, 60]
+    content:
+      style: "$body"
+      fontSize: 12.5
+      lineHeight: 1.7
+      text: |
+        <p><strong>下一步</strong>：分时图（当日 tick 面积图）· 单命令启动脚本 · 配 key 后真实专家团月度复盘</p>
+  - elementId: foot-rule
+    elementType: shape
+    bounds: [56, 460, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: foot
+    elementType: text
+    bounds: [56, 474, 848, 16]
+    content: {style: "$small", wrap: false, text: "本项目仅供学习研究，不构成投资建议 · 暂不执行真实交易 · 回测结果不代表未来收益"}
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "08"}

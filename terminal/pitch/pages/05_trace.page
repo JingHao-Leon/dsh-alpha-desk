@@ -1,0 +1,91 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: TOKEN TRACE}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 运行轨迹：哪步思考、哪步调工具、各花多少 token}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: lead
+    elementType: text
+    bounds: [56, 124, 848, 40]
+    content:
+      style: "$body"
+      fontSize: 13
+      text: |
+        <p>dsh 每次运行都把完整事件流写进 session 存档（jsonl）。终端在回答返回前解析存档，把思考、工具调用与 token 计量挂到每条回复下方——数据来自 harness 自身记录，不是事后估算。</p>
+  - elementId: ev-title
+    elementType: text
+    bounds: [56, 176, 420, 20]
+    content: {fontSize: 13.5, color: "$ink", bold: true, wrap: false, text: 存档里的四类事件}
+  - elementId: ev-body
+    elementType: text
+    bounds: [56, 202, 420, 168]
+    content:
+      style: "$body"
+      fontSize: 12.5
+      lineHeight: 1.7
+      text: |
+        <p><span style="font-family:JetBrains Mono; font-size:11px; color:$primary;">reasoning-chunks</span>　每一步的思考原文</p>
+        <p><span style="font-family:JetBrains Mono; font-size:11px; color:$primary;">tool/call · tool/result</span>　工具名、参数、结果，带 turn/step 编号</p>
+        <p><span style="font-family:JetBrains Mono; font-size:11px; color:$primary;">step/start · step/end</span>　步骤边界</p>
+        <p><span style="font-family:JetBrains Mono; font-size:11px; color:$primary;">assistant/chunk(usage)</span>　每步 input / output / cache / reasoning token</p>
+  - elementId: num-panel
+    elementType: shape
+    bounds: [56, 386, 420, 100]
+    shapeName: rect
+    fill: {type: solid, color: "$faint"}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: num-title
+    elementType: text
+    bounds: [70, 396, 392, 18]
+    content: {fontSize: 12, color: "$muted", wrap: false, text: 实测一次问答（"贵州茅台现在的市盈率是多少"）}
+  - elementId: num-body
+    elementType: text
+    bounds: [70, 418, 392, 60]
+    content:
+      fontSize: 13
+      color: "$ink"
+      lineHeight: 1.6
+      text: |
+        <p><strong>8 步 · 8 次工具调用 · 98.4 秒</strong></p>
+        <p>输入 15.0k（+108.5k 缓存）· 输出 7.2k · 思考 5.5k tokens</p>
+  - elementId: shot
+    elementType: image
+    bounds: [508, 176, 396, 100]
+    src: media/trace-summary.png
+    fit: {mode: cover}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: shot-caption
+    elementType: text
+    bounds: [508, 282, 396, 14]
+    content: {style: "$small", align: [center, middle], wrap: false, text: "回复下方的轨迹摘要行（可折叠）"}
+  - elementId: shot2
+    elementType: image
+    bounds: [508, 308, 396, 120]
+    src: media/trace-zoom.png
+    fit: {mode: cover}
+    crop: {top: 0.12}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: shot2-caption
+    elementType: text
+    bounds: [508, 434, 396, 14]
+    content: {style: "$small", align: [center, middle], wrap: false, text: "展开后：逐步思考 + 工具调用 + 每步 token 小计"}
+  - elementId: shot2-note
+    elementType: text
+    bounds: [508, 456, 396, 40]
+    content: {style: "$small", text: 时间线按 step 排列：💭 思考摘要、🔧 工具调用（参数与结果可展开）、in/out/思考 token 逐项列出。}
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "05"}

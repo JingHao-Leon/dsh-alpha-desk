@@ -1,0 +1,83 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: REPRODUCE}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 两个进程跑起来：复现与实测清单}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: cmd-panel
+    elementType: shape
+    bounds: [56, 124, 560, 150]
+    shapeName: rect
+    fill: {type: solid, color: "$faint"}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: cmd
+    elementType: text
+    bounds: [70, 134, 532, 132]
+    content:
+      style: "$code"
+      fontSize: 11
+      text: |
+        <p><span style="color:$muted;"># 后端（FastAPI 网关，端口 8321）</span></p>
+        <p>$ cd terminal/backend</p>
+        <p>$ ../.venv/bin/uvicorn app.main:app --port 8321</p>
+        <p><span style="color:$muted;"># 前端（Vite，端口 5173/5174）</span></p>
+        <p>$ cd terminal/web && npm run dev</p>
+        <p><span style="color:$muted;"># 依赖：python3.11 venv（vnpy 4.4 / fastapi / zstandard）+ node</span></p>
+  - elementId: api-title
+    elementType: text
+    bounds: [56, 294, 560, 20]
+    content: {fontSize: 13.5, color: "$ink", bold: true, wrap: false, text: 两个新端点}
+  - elementId: api-body
+    elementType: text
+    bounds: [56, 320, 560, 84]
+    content:
+      style: "$body"
+      fontSize: 12.5
+      lineHeight: 1.7
+      text: |
+        <p><span style="font-family:JetBrains Mono; font-size:11px; color:$primary;">POST /api/chat</span>　回复 + trace（逐步思考/工具/token/耗时）</p>
+        <p><span style="font-family:JetBrains Mono; font-size:11px; color:$primary;">POST /api/experts</span>　按 ticker 召开专家团，返回结构化信号</p>
+        <p><span style="font-family:JetBrains Mono; font-size:11px; color:$primary;">GET /api/kline · /ws/quotes</span>　行情与推送（既有能力）</p>
+  - elementId: checks-title
+    elementType: text
+    bounds: [648, 124, 256, 22]
+    content: {fontSize: 14, color: "$ink", bold: true, wrap: false, text: 本机实测（2026-08-15）}
+  - elementId: checks
+    elementType: text
+    bounds: [648, 152, 256, 240]
+    content:
+      style: "$body"
+      fontSize: 12.5
+      lineHeight: 1.75
+      text: |
+        <p><span style="color:$primary;"><strong>✓</strong></span> tsc 类型检查零错误</p>
+        <p><span style="color:$primary;"><strong>✓</strong></span> /api/experts 返回 6 专家结构化信号</p>
+        <p><span style="color:$primary;"><strong>✓</strong></span> /api/chat 真实 dsh 运行，trace 完整解析</p>
+        <p><span style="color:$primary;"><strong>✓</strong></span> 缺 key 走示例数据并显式标注</p>
+        <p><span style="color:$primary;"><strong>✓</strong></span> 轨迹摘要与展开时间线 UI 实测</p>
+        <p><span style="color:$primary;"><strong>✓</strong></span> K线四周期 + WS 报价推送正常</p>
+  - elementId: checks-rule
+    elementType: shape
+    bounds: [648, 408, 256, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: checks-note
+    elementType: text
+    bounds: [648, 420, 256, 70]
+    content: {style: "$small", text: 真实专家团（消耗 LLM 额度）需配置 FINANCIAL_DATASETS_API_KEY 与一个 LLM key，见 skill/SKILL.md 前置条件。}
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "07"}

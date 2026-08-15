@@ -1,0 +1,104 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: COMPLIANCE}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 合规不是贴纸：四层机制写进架构}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: c1-box
+    elementType: shape
+    bounds: [56, 130, 414, 108]
+    shapeName: roundRect
+    adjustments: [8000]
+    fill: {type: solid, color: "$faint"}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: c1-text
+    elementType: text
+    bounds: [72, 142, 382, 84]
+    content:
+      fontSize: 12.5
+      color: "$body"
+      lineHeight: 1.6
+      text: |
+        <p><strong>① risk-gate 插件强制拦截</strong></p>
+        <p><span style="font-size:12px; color:$muted;">券商下单、资金划转命令在工具执行前被拦截，不依赖使用者自觉；实盘请求被明确拒绝并说明原因</span></p>
+  - elementId: c2-box
+    elementType: shape
+    bounds: [490, 130, 414, 108]
+    shapeName: roundRect
+    adjustments: [8000]
+    fill: {type: solid, color: "$faint"}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: c2-text
+    elementType: text
+    bounds: [506, 142, 382, 84]
+    content:
+      fontSize: 12.5
+      color: "$body"
+      lineHeight: 1.6
+      text: |
+        <p><strong>② 只读网关</strong></p>
+        <p><span style="font-size:12px; color:$muted;">FastAPI 只暴露查询与对话端点，不持有任何交易凭证；行情数据源为免费公开接口</span></p>
+  - elementId: c3-box
+    elementType: shape
+    bounds: [56, 254, 414, 108]
+    shapeName: roundRect
+    adjustments: [8000]
+    fill: {type: solid, color: "$faint"}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: c3-text
+    elementType: text
+    bounds: [72, 266, 382, 84]
+    content:
+      fontSize: 12.5
+      color: "$body"
+      lineHeight: 1.6
+      text: |
+        <p><strong>③ 免责声明自动附加</strong></p>
+        <p><span style="font-size:12px; color:$muted;">网关在每条 agent 回复末尾核对并补齐"仅供学习研究，不构成投资建议"；状态栏常驻同一提示</span></p>
+  - elementId: c4-box
+    elementType: shape
+    bounds: [490, 254, 414, 108]
+    shapeName: roundRect
+    adjustments: [8000]
+    fill: {type: solid, color: "$faint"}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: c4-text
+    elementType: text
+    bounds: [506, 266, 382, 84]
+    content:
+      fontSize: 12.5
+      color: "$body"
+      lineHeight: 1.6
+      text: |
+        <p><strong>④ 示例数据显式标识</strong></p>
+        <p><span style="font-size:12px; color:$muted;">未配 API key 时专家团展示内置示例，界面黄色标识"示例数据"，绝不冒充真实信号</span></p>
+  - elementId: bottom-rule
+    elementType: shape
+    bounds: [56, 392, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: bottom-text
+    elementType: text
+    bounds: [56, 408, 848, 60]
+    content:
+      style: "$body"
+      fontSize: 13
+      lineHeight: 1.7
+      text: |
+        <p>项目立场：<strong>暂不执行真实交易</strong>。整套终端是投研学习环境——行情、信号、回测、轨迹都服务于研究，任何一环都不触碰真实账户。</p>
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "06"}

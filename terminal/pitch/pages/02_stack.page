@@ -1,0 +1,109 @@
+pageType: content
+background:
+  type: solid
+  color: "#FFFFFF"
+elements:
+  - elementId: kicker
+    elementType: text
+    bounds: [56, 36, 400, 16]
+    content: {style: "$kicker", wrap: false, text: ARCHITECTURE}
+  - elementId: title
+    elementType: text
+    bounds: [56, 56, 848, 36]
+    content: {style: "$pageTitle", wrap: false, text: 三层结构：界面、网关、引擎各司其职}
+  - elementId: title-rule
+    elementType: shape
+    bounds: [56, 102, 848, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: box1
+    elementType: shape
+    bounds: [56, 130, 560, 84]
+    shapeName: roundRect
+    adjustments: [8000]
+    fill: {type: solid, color: "$faint"}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: box1-text
+    elementType: text
+    bounds: [76, 140, 520, 64]
+    content:
+      fontSize: 13
+      color: "$body"
+      lineHeight: 1.5
+      text: |
+        <p><strong>界面层 · React + klinecharts</strong></p>
+        <p><span style="color:$muted; font-size:12px;">四区布局：自选报价 / agent 对话 / K线（日K·60·15·5分）/ 报价明细与专家团</span></p>
+  - elementId: arrow1
+    elementType: text
+    bounds: [56, 214, 560, 20]
+    content: {fontSize: 13, color: "$muted", align: [center, middle], wrap: false, text: "↓ REST + WebSocket"}
+  - elementId: box2
+    elementType: shape
+    bounds: [56, 238, 560, 84]
+    shapeName: roundRect
+    adjustments: [8000]
+    fill: {type: solid, color: "$faint"}
+    border: {style: solid, width: 1, color: "$hairline"}
+  - elementId: box2-text
+    elementType: text
+    bounds: [76, 248, 520, 64]
+    content:
+      fontSize: 13
+      color: "$body"
+      lineHeight: 1.5
+      text: |
+        <p><strong>网关层 · FastAPI（只读）</strong></p>
+        <p><span style="color:$muted; font-size:12px;">/api/chat 返回回复+运行轨迹 · /api/experts 召开专家团 · /ws/quotes 推送行情</span></p>
+  - elementId: arrow2
+    elementType: text
+    bounds: [56, 322, 560, 20]
+    content: {fontSize: 13, color: "$muted", align: [center, middle], wrap: false, text: "↓ 子进程调用"}
+  - elementId: box3
+    elementType: shape
+    bounds: [56, 346, 560, 118]
+    shapeName: roundRect
+    adjustments: [8000]
+    fill: {type: solid, color: "#0C5B4314"}
+    border: {style: solid, width: 1, color: "$primary"}
+  - elementId: box3-text
+    elementType: text
+    bounds: [76, 356, 520, 100]
+    content:
+      fontSize: 13
+      color: "$body"
+      lineHeight: 1.55
+      text: |
+        <p><strong>引擎层 · 四路独立数据源</strong></p>
+        <p><span style="font-size:12px;">· 行情：腾讯 gtimg 实时报价与K线，输出 vnpy 原生 BarData/TickData</span></p>
+        <p><span style="font-size:12px;">· 对话：dsh headless + alpha-desk skill + risk-gate 风控插件</span></p>
+        <p><span style="font-size:12px;">· 专家团：aihf 多大师模型推理，CycleRecord 落盘 records/</span></p>
+        <p><span style="font-size:12px;">· 轨迹：dsh session 存档（jsonl）逐事件解析，token 逐步计量</span></p>
+  - elementId: side-title
+    elementType: text
+    bounds: [652, 130, 252, 22]
+    content: {fontSize: 14, color: "$ink", bold: true, wrap: false, text: 设计要点}
+  - elementId: side-body
+    elementType: text
+    bounds: [652, 158, 252, 240]
+    content:
+      style: "$body"
+      fontSize: 12.5
+      lineHeight: 1.7
+      text: |
+        <p>· 网关不持有任何凭证，下单命令在 risk-gate 层被拦截</p>
+        <p>· 行情与 agent 解耦，任一路故障不影响其他区</p>
+        <p>· 轨迹数据来自 dsh 自身存档，不是估算或回放造假</p>
+        <p>· 专家团结果结构化存储，可被复盘流程复用</p>
+  - elementId: side-rule
+    elementType: shape
+    bounds: [652, 414, 252, 1]
+    shapeName: rect
+    fill: {type: solid, color: "$hairline"}
+  - elementId: side-note
+    elementType: text
+    bounds: [652, 426, 252, 60]
+    content: {style: "$small", text: 整套系统两个进程即可启动：uvicorn 网关 + Vite 前端，无数据库依赖。}
+  - elementId: pagenum
+    elementType: text
+    bounds: [870, 512, 34, 14]
+    content: {style: "$small", align: [right, middle], wrap: false, text: "02"}
