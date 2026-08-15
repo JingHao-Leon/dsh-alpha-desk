@@ -1,6 +1,6 @@
 # alpha-desk 量化终端(terminal/)
 
-把 dsh-alpha-desk 的投研 agent 能力装进一个同花顺风格的 Web 终端:左栏自选实时报价(红涨绿跌)、中间 DeepSeek agent 对话(走 risk-gate 风控)、底部 K 线(日K/60/15/5 分 + MA + 成交量)、右栏报价明细与 agent 动态。
+把 dsh-alpha-desk 的投研 agent 能力装进一个同花顺风格的 Web 终端:左栏自选实时报价(红涨绿跌)、中间 DeepSeek agent 对话(走 risk-gate 风控,回复下方带**运行轨迹**——逐步思考/工具调用/token 计量)、底部 K 线(日K/60/15/5 分 + MA + 成交量)、右栏报价明细与 **专家团**(aihf 多大师信号面板)双 tab。
 
 **只读研究终端:没有任何下单路径。** 数据为腾讯免费行情(分钟级延迟),所有 agent 回复仅供学习研究,不构成投资建议。
 
@@ -13,8 +13,11 @@ FastAPI terminal/backend (python3.11 venv)
    ├── gateway_gtimg.py   腾讯行情 → vnpy BarData/TickData
    │                      (接口对齐 vnpy BaseGateway,未来 CTP/SimNow 可 drop-in)
    ├── market.py          自选缓存 + 15s 刷新 + WS 广播
-   ├── agent_bridge.py    dsh --profile headless 子进程
-   │                      (挂载 ../plugins/risk-gate,cwd=仓库根,alpha-desk skill 自动生效)
+   ├── agent_bridge.py    dsh --profile headless 子进程 + session 存档解析
+   │                      (挂载 ../plugins/risk-gate,cwd=仓库根,alpha-desk skill 自动生效;
+   │                       回复附带 trace:逐步 reasoning/tool-call/usage,来自 dsh 自身 session jsonl)
+   ├── experts.py         aihf 专家团:多大师模型信号+理由,结构化返回;
+   │                      未配 FINANCIAL_DATASETS_API_KEY/LLM key 时返回内置示例(demo=true 显式标注)
    └── watchlist.json     自选清单
 ```
 
@@ -45,7 +48,13 @@ npm run dev        # 打开终端里显示的 localhost 地址
 | `GET /api/quote/{symbol}` | 单票明细 |
 | `GET /api/kline?symbol=&period=daily|60|30|15|5&count=` | K 线(vnpy BarData JSON) |
 | `WS /ws/quotes` | 15s 推送自选快照 |
-| `POST /api/chat` `{message, symbol?, symbol_name?}` | dsh agent 对话(超时 240s) |
+| `POST /api/chat` `{message, symbol?, symbol_name?}` | dsh agent 对话(超时 240s),返回 `{reply, trace}` |
+| `POST /api/experts` `{tickers}` | 召开专家团(aihf 单周期,超时 600s;缺 key 时返回示例数据) |
+
+## 产物
+
+- `pitch/` — 介绍 PPT(PPTD 工程 + terminal-pitch.pptx,8 页:架构/四区/专家团/轨迹/合规/复现)
+- `demo/alpha-desk-terminal-demo.mp4` — 49s 实操视频(报价→对话轨迹展开→专家团滚动)
 
 ## 已知边界
 

@@ -3,3 +3,5 @@ akshare==1.18.91
 fastapi
 uvicorn[standard]
 pytest
+zstandard
+pillow

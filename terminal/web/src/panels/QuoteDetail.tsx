@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import type { Quote } from '../api'
+import { Experts } from './Experts'
 
 interface Props {
   quote?: Quote
@@ -10,6 +12,7 @@ function yi(v?: number) {
 }
 
 export function QuoteDetail({ quote, activity }: Props) {
+  const [tab, setTab] = useState<'quote' | 'experts'>('quote')
   const q = quote
   const pct = q?.change_pct ?? 0
   const cls = pct > 0 ? 'up' : pct < 0 ? 'down' : 'flat'
@@ -30,20 +33,29 @@ export function QuoteDetail({ quote, activity }: Props) {
 
   return (
     <aside className="detail">
-      <div className="quote-head">
-        <div className="quote-name">{q?.name ?? '--'} <i>{q?.symbol}</i></div>
-        <div className={`quote-price ${cls}`}>{q?.last_price?.toFixed(2) ?? '--'}</div>
-        <div className={`quote-pct ${cls}`}>{pct > 0 ? '+' : ''}{pct.toFixed(2)}%</div>
+      <div className="detail-tabs">
+        <button className={tab === 'quote' ? 'on' : ''} onClick={() => setTab('quote')}>报价</button>
+        <button className={tab === 'experts' ? 'on' : ''} onClick={() => setTab('experts')}>专家团</button>
       </div>
-      <div className="quote-grid">
-        {rows.map(([k, v]) => (
-          <div key={k} className="quote-cell"><span>{k}</span><b>{v}</b></div>
-        ))}
+      <div style={{ display: tab === 'quote' ? 'block' : 'none' }}>
+        <div className="quote-head">
+          <div className="quote-name">{q?.name ?? '--'} <i>{q?.symbol}</i></div>
+          <div className={`quote-price ${cls}`}>{q?.last_price?.toFixed(2) ?? '--'}</div>
+          <div className={`quote-pct ${cls}`}>{pct > 0 ? '+' : ''}{pct.toFixed(2)}%</div>
+        </div>
+        <div className="quote-grid">
+          {rows.map(([k, v]) => (
+            <div key={k} className="quote-cell"><span>{k}</span><b>{v}</b></div>
+          ))}
+        </div>
+        <div className="panel-title" style={{ marginTop: 12 }}>agent 动态</div>
+        <div className="activity">
+          {activity.length === 0 && <div className="dim" style={{ padding: 8 }}>暂无动作</div>}
+          {activity.map((a, i) => <div key={i} className="activity-item">{a}</div>)}
+        </div>
       </div>
-      <div className="panel-title" style={{ marginTop: 12 }}>agent 动态</div>
-      <div className="activity">
-        {activity.length === 0 && <div className="dim" style={{ padding: 8 }}>暂无动作</div>}
-        {activity.map((a, i) => <div key={i} className="activity-item">{a}</div>)}
+      <div style={{ display: tab === 'experts' ? 'block' : 'none' }}>
+        <Experts />
       </div>
     </aside>
   )

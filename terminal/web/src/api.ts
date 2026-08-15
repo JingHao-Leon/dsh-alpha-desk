@@ -31,6 +31,63 @@ export interface Bar {
   volume: number
 }
 
+// -- agent trace ---------------------------------------------------------------
+export interface Usage {
+  inputTokens?: number
+  outputTokens?: number
+  cacheReadTokens?: number
+  reasoningTokens?: number
+}
+
+export interface TraceTool {
+  callId: string
+  name: string
+  summary: string
+  result: string
+}
+
+export interface TraceStep {
+  step: number
+  reasoning: string
+  tools: TraceTool[]
+  usage?: Usage | null
+}
+
+export interface Trace {
+  model?: string | null
+  durationMs: number
+  steps: TraceStep[]
+  totals: Usage & { steps: number; toolCalls: number }
+}
+
+export interface ChatResponse {
+  reply: string
+  trace?: Trace | null
+}
+
+// -- expert panel ----------------------------------------------------------------
+export interface ExpertSignal {
+  ticker: string
+  value: number
+  reasoning: string
+}
+
+export interface Expert {
+  model: string
+  label: string
+  signals: ExpertSignal[]
+}
+
+export interface ExpertsResponse {
+  demo: boolean
+  note?: string
+  tickers: string[]
+  experts: Expert[]
+  positions?: { ticker: string; action?: string; weight?: number }[]
+  skipped?: unknown[]
+  asOf?: string
+}
+
 export async function fetchWatchlist(): Promise<Quote[]> {
   const r = await fetch(`${API}/api/watchlist`)
   if (!r.ok) throw new Error(`watchlist ${r.status}`)
@@ -43,7 +100,7 @@ export async function fetchKline(symbol: string, period: string, count = 200): P
   return r.json()
 }
 
-export async function postChat(message: string, symbol?: string, symbolName?: string): Promise<string> {
+export async function postChat(message: string, symbol?: string, symbolName?: string): Promise<ChatResponse> {
   const r = await fetch(`${API}/api/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -53,7 +110,20 @@ export async function postChat(message: string, symbol?: string, symbolName?: st
     const detail = await r.json().catch(() => ({}))
     throw new Error(detail.detail || `chat ${r.status}`)
   }
-  return (await r.json()).reply
+  return r.json()
+}
+
+export async function postExperts(tickers: string): Promise<ExpertsResponse> {
+  const r = await fetch(`${API}/api/experts`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tickers }),
+  })
+  if (!r.ok) {
+    const detail = await r.json().catch(() => ({}))
+    throw new Error(detail.detail || `experts ${r.status}`)
+  }
+  return r.json()
 }
 
 export function openQuotesWS(onMessage: (quotes: Quote[]) => void): WebSocket {

@@ -1,0 +1,66 @@
+{
+  "demo": true,
+  "experts": [
+    {
+      "model": "graham",
+      "label": "格雷厄姆",
+      "signals": [
+        {"ticker": "AAPL", "value": -0.35, "reasoning": "PE 约 28 倍,显著高于其历史中枢,净资产覆盖率不足。护城河虽深,但当前价格没有留出安全边际,不符合防御型买入标准。"},
+        {"ticker": "MSFT", "value": -0.2, "reasoning": "盈利质量极高,但估值已计入过多云业务增长预期。按净流动资产与盈利收益率双重检验,当前价位只能给中性偏空。"},
+        {"ticker": "NVDA", "value": -0.7, "reasoning": "市销率与市盈率均处于极端区间,周期性半导体股按峰值盈利定价是经典陷阱。无论公司多优秀,价格已透支数年增长。"}
+      ]
+    },
+    {
+      "model": "buffett",
+      "label": "巴菲特",
+      "signals": [
+        {"ticker": "AAPL", "value": 0.75, "reasoning": "生态系统锁定带来持续的自由现金流,回购持续缩减股本。以合理价格买伟大公司——现价虽不便宜,仍在可接受区间上沿。"},
+        {"ticker": "MSFT", "value": 0.6, "reasoning": "企业级护城河+订阅制现金流,管理层资本配置记录优异。愿意持有,但不急于在此价位加仓。"},
+        {"ticker": "NVDA", "value": 0.1, "reasoning": "承认其竞争优势,但 CUDA 生态的持久性超出我的能力圈判断范围。看不懂十年后格局,所以不下重注。"}
+      ]
+    },
+    {
+      "model": "munger",
+      "label": "芒格",
+      "signals": [
+        {"ticker": "AAPL", "value": 0.5, "reasoning": "优秀的消费品牌+理性回购,激励机制与股东一致。唯一要反过来想的风险:中国区收入与反垄断监管。"},
+        {"ticker": "MSFT", "value": 0.7, "reasoning": "多维护城河叠加(转换成本×网络效应×规模经济),是少数值得'买入后什么都不做'的资产。"},
+        {"ticker": "NVDA", "value": -0.15, "reasoning": "避免愚蠢比追求聪明更重要:当所有人都在为同一只股票找理由时,通常就是该反过来想的时候。"}
+      ]
+    },
+    {
+      "model": "lynch",
+      "label": "彼得·林奇",
+      "signals": [
+        {"ticker": "AAPL", "value": 0.3, "reasoning": "从快速增长股转为稳健增长股,PEG 约 2.1 偏贵,但机构持仓仍有空间。列入'值得跟踪'而非'立即买入'。"},
+        {"ticker": "MSFT", "value": 0.45, "reasoning": "云+AI 双引擎让这只大象仍在跳舞,盈利增速 15%+ 对应当前估值基本合理(P EG≈1.8)。"},
+        {"ticker": "NVDA", "value": 0.55, "reasoning": "故事尽人皆知但盈利兑现更快——只要数据中心资本开支周期不逆转,盈利增速能消化估值。关键跟踪点: hyperscaler 资本开支指引。"}
+      ]
+    },
+    {
+      "model": "druckenmiller",
+      "label": "德鲁肯米勒",
+      "signals": [
+        {"ticker": "AAPL", "value": 0.2, "reasoning": "流动性环境边际收紧时,超大盘防御属性有配置价值,但弹性不足。小仓位参与,等待更好的宏观赔率。"},
+        {"ticker": "MSFT", "value": 0.35, "reasoning": "AI 货币化路径最清晰的标的之一,顺应产业趋势做多,跌破 200 日线趋势转弱则果断离场。"},
+        {"ticker": "NVDA", "value": 0.65, "reasoning": "宏观叙事的中心:AI 资本开支周期仍在早期,趋势、盈利动量、仓位结构三者共振。错了就快速止损,对了就让利润奔跑。"}
+      ]
+    },
+    {
+      "model": "pead",
+      "label": "财报漂移(量化)",
+      "signals": [
+        {"ticker": "AAPL", "value": 0.25, "reasoning": "最近季度财报超预期 2.3%,公告后 5 日漂移 +1.8%,标准化意外得分(SUE)处于历史 61 分位,信号温和偏多。"},
+        {"ticker": "MSFT", "value": 0.4, "reasoning": "连续 12 个季度超预期,SUE 分位 74,公告后漂移方向稳定为正,量化信号偏多。"},
+        {"ticker": "NVDA", "value": 0.5, "reasoning": "SUE 分位 88,但每次超预期幅度在递减——漂移强度仍为正,信号强度从'强多'下调至'中等多'。"}
+      ]
+    }
+  ],
+  "positions": [
+    {"ticker": "AAPL", "action": "hold", "weight": 0.18},
+    {"ticker": "MSFT", "action": "add", "weight": 0.22},
+    {"ticker": "NVDA", "action": "hold", "weight": 0.12}
+  ],
+  "skipped": [],
+  "asOf": "2026-08-15"
+}

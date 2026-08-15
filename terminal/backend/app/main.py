@@ -9,7 +9,7 @@ from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from . import agent_bridge
+from . import agent_bridge, experts
 from .market import MarketData
 
 logging.basicConfig(level=logging.INFO)
@@ -90,10 +90,25 @@ async def post_chat(req: ChatRequest) -> dict:
     if not req.message.strip():
         raise HTTPException(400, "message 不能为空")
     try:
-        reply = await agent_bridge.chat(req.message, req.symbol, req.symbol_name)
+        return await agent_bridge.chat(req.message, req.symbol, req.symbol_name)
     except RuntimeError as exc:
         raise HTTPException(502, str(exc))
-    return {"reply": reply}
+
+
+# -- expert panel --------------------------------------------------------------
+class ExpertsRequest(BaseModel):
+    tickers: str  # 逗号分隔,如 "AAPL,MSFT,NVDA"
+
+
+@app.post("/api/experts")
+async def post_experts(req: ExpertsRequest) -> dict:
+    tickers = [t for t in req.tickers.replace(" ", ",").split(",") if t.strip()]
+    if not tickers:
+        raise HTTPException(400, "tickers 不能为空")
+    try:
+        return await experts.run_experts(tickers)
+    except RuntimeError as exc:
+        raise HTTPException(502, str(exc))
 
 
 # -- websocket ----------------------------------------------------------------
