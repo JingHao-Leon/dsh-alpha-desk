@@ -95,7 +95,7 @@ elements:
       fontSize: 12.5
       color: "$body"
       lineHeight: 1.5
-      text: 纯投研环境，永不执行真实交易——由 risk-gate 在架构层强制，而非依赖使用者的自觉。
+      text: 纯投研环境，暂不执行真实交易——由 risk-gate 在架构层强制，而非依赖使用者的自觉。
   - elementId: b5-line
     elementType: shape
     bounds: [56, 388, 848, 1]

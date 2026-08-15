@@ -113,4 +113,4 @@ dsh-alpha-desk/
 
 - 引擎：[virattt/ai-hedge-fund](https://github.com/virattt/ai-hedge-fund)（MIT），本项目只做编排层，不 fork 其代码；其数据源 Financial Datasets 主要覆盖美股
 - 运行时：[deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)
-- 数据源覆盖不了 A股/港股；回测结果不代表未来收益；本项目永不执行真实交易
+- 数据源覆盖不了 A股/港股；回测结果不代表未来收益；本项目暂不执行真实交易
