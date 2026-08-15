@@ -1,0 +1,9 @@
+# risk-gate bundle patch: inserts the Alpha Desk compliance gate into the
+# profile's cordis entry tree. It hooks `tools/pre-execute` and monotonically
+# denies live-trading / credential-access tool calls before dispatch.
+# Addressed by id from later patch layers (a user's cordis.patch.yml can
+# disable it via `- id: alpha-desk-risk-gate` + `disabled: true`).
+
+- insert:
+    - id: alpha-desk-risk-gate
+      name: '@alpha-desk/risk-gate'

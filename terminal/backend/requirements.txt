@@ -1,0 +1,5 @@
+vnpy==4.4.0
+akshare==1.18.91
+fastapi
+uvicorn[standard]
+pytest

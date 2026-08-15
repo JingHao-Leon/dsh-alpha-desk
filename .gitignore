@@ -6,3 +6,7 @@ records/
 .env
 pitch/.qa-images/
 pitch/.qa-pptx/
+terminal/.venv/
+terminal/web/node_modules/
+terminal/web/dist/
+__pycache__/

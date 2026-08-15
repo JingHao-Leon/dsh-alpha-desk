@@ -3,8 +3,18 @@
   "version": "0.1.0",
   "description": "Alpha Desk compliance gate for deepseek-harness: denies live-trading and credential-access tool calls at tools/pre-execute.",
   "type": "module",
-  "main": "index.ts",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "index.ts",
+    "cordis.patch.yml"
+  ],
   "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
   "peerDependencies": {
     "@deepseek-ai/cordis": "*",
     "@deepseek-ai/dsh-tools": "*"

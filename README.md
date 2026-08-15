@@ -46,6 +46,14 @@ deepseek-harness agent ── inject ──► skill/SKILL.md（本仓库）
 
 底层引擎 [ai-hedge-fund](https://github.com/virattt/ai-hedge-fund)（MIT）把"基金"做成声明式 mandate：策略 pod、投资大师 alpha 模型（格雷厄姆/巴菲特/芒格/林奇/德鲁肯米勒 + 量化 PEAD）、风控限额、再平衡频率都是 YAML 数据；标的在运行时通过 `--tickers` 传入。aihf 原生支持 **DeepSeek 作为推理 LLM**——DeepSeek 模型跑在 DeepSeek harness 里驱动 AI 基金，全栈同构。
 
+## 量化终端（terminal/）
+
+把上面的 agent 能力装进一个同花顺风格的 Web 终端——A股自选实时报价、K线、右栏明细，中间是对话区,所有回复都过 risk-gate:
+
+![alpha-desk 量化终端](terminal/screenshot.png)
+
+数据层用 **vnpy** 的 BarData/TickData 对象模型与 Gateway 语义封装腾讯免费行情(分钟级延迟),未来换 CTP/SimNow 是 drop-in 替换;agent 走 `dsh --profile headless` + risk-gate patch。**只读研究终端,没有下单路径。** 安装与 API 详见 [terminal/README.md](terminal/README.md)。
+
 ## 快速开始
 
 ```bash
@@ -83,6 +91,10 @@ dsh-alpha-desk/
 │   ├── fundamental-ls-market-neutral.yaml #  五大师多空市场中性，月频
 │   └── inflections-daily.yaml            #   宏观拐点（德鲁肯米勒+林奇）日频
 ├── plugins/risk-gate/                    # dsh 风控钩子插件（tools/pre-execute）
+├── terminal/                             # 同花顺风格量化终端（vnpy 数据层 + FastAPI + React）
+│   ├── backend/app/gateway_gtimg.py      #   腾讯行情 → vnpy BarData/TickData
+│   ├── backend/app/agent_bridge.py       #   dsh headless 桥（risk-gate 已挂载）
+│   └── web/                              #   React + klinecharts 终端 UI
 ├── records/                              # 运行记录落盘目录（git 忽略）
 └── LICENSE                               # MIT
 ```
