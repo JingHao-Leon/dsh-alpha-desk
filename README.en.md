@@ -6,7 +6,7 @@ English | [中文](README.md)
 > multi-strategy AI fund backtesting + China A/H-share technical analysis + a compliance gate + scheduled monitoring + investment memory.
 > This repo is an installable dsh **skill pack**, and a complete demonstration of dsh's microkernel extension points (skill / hook / cron / memory).
 
-**Disclaimer: for education and research only. Not investment advice. This project never executes real trades.**
+**Disclaimer: for education and research only. Not investment advice. This project does not execute real trades for now.**
 
 ## What it solves
 
@@ -101,4 +101,4 @@ dsh-alpha-desk/
 
 - Engine: [virattt/ai-hedge-fund](https://github.com/virattt/ai-hedge-fund) (MIT) — this project is an orchestration layer only and does not fork its code; its data source (Financial Datasets) mainly covers US equities
 - Runtime: [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)
-- A/H-share data is out of scope for the engine; backtests do not predict future returns; this project never executes real trades
+- A/H-share data is out of scope for the engine; backtests do not predict future returns; this project does not execute real trades for now
