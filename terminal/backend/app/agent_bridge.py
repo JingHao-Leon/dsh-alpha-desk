@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
 import time
 from pathlib import Path
 
@@ -22,7 +23,21 @@ import zstandard
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DSH_BIN = Path.home() / ".dsh/profiles/node_modules/@deepseek-ai/dsh/lib/bin.js"
 RISK_GATE_PATCH = REPO_ROOT / "plugins/risk-gate/cordis.patch.yml"
+IFIND_MCP_PATCH = REPO_ROOT / "plugins/ifind-mcp/cordis.patch.yml"
+IFIND_MCP_ENV = REPO_ROOT / "plugins/ifind-mcp/.env"
 TIMEOUT_SECONDS = 240
+
+
+def _load_ifind_env() -> dict[str, str]:
+    """plugins/ifind-mcp/.env (KEY=VALUE lines, gitignored) -> subprocess env."""
+    env: dict[str, str] = {}
+    if IFIND_MCP_ENV.is_file():
+        for line in IFIND_MCP_ENV.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                env[k.strip()] = v.strip().strip('"').strip("'")
+    return env
 
 DISCLAIMER = "本内容仅供学习研究,不构成投资建议。"
 
@@ -146,12 +161,17 @@ async def chat(message: str, symbol: str | None = None, symbol_name: str | None 
         prompt = f"[量化终端上下文] 用户正在查看 {symbol_name or ''}({symbol}) 的行情。\n用户问题:{message}"
 
     started_at = time.time()
+    patches = [str(RISK_GATE_PATCH)]
+    if IFIND_MCP_PATCH.is_file():
+        patches.append(str(IFIND_MCP_PATCH))
+    cmd = ["node", str(DSH_BIN), "--profile", "headless"]
+    for p in patches:
+        cmd += ["--patch", p]
+    cmd.append(prompt)
     proc = await asyncio.create_subprocess_exec(
-        "node", str(DSH_BIN),
-        "--profile", "headless",
-        "--patch", str(RISK_GATE_PATCH),
-        prompt,
+        *cmd,
         cwd=REPO_ROOT,
+        env={**os.environ, **_load_ifind_env()},
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
     )
