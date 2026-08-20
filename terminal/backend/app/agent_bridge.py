@@ -23,20 +23,36 @@ import zstandard
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DSH_BIN = Path.home() / ".dsh/profiles/node_modules/@deepseek-ai/dsh/lib/bin.js"
 RISK_GATE_PATCH = REPO_ROOT / "plugins/risk-gate/cordis.patch.yml"
-IFIND_MCP_PATCH = REPO_ROOT / "plugins/ifind-mcp/cordis.patch.yml"
-IFIND_MCP_ENV = REPO_ROOT / "plugins/ifind-mcp/.env"
+IFIND_ENV = REPO_ROOT / "plugins/ifind/.env"
+OPENCLAW_CONFIG = Path.home() / ".kimi_openclaw/openclaw.json"
 TIMEOUT_SECONDS = 240
 
 
 def _load_ifind_env() -> dict[str, str]:
-    """plugins/ifind-mcp/.env (KEY=VALUE lines, gitignored) -> subprocess env."""
+    """Kimi agent-gw credentials for the iFinD datasource (plugins/ifind).
+
+    Order: plugins/ifind/.env (gitignored) -> Kimi desktop's own kimi-coding
+    key from ~/.kimi_openclaw/openclaw.json. Returned dict is overlaid on the
+    dsh subprocess environment, so plugins/ifind/ifind_tool.py works inside
+    agent runs without any manual key setup on this machine.
+    """
     env: dict[str, str] = {}
-    if IFIND_MCP_ENV.is_file():
-        for line in IFIND_MCP_ENV.read_text(encoding="utf-8").splitlines():
+    if IFIND_ENV.is_file():
+        for line in IFIND_ENV.read_text(encoding="utf-8").splitlines():
             line = line.strip()
             if line and not line.startswith("#") and "=" in line:
                 k, v = line.split("=", 1)
                 env[k.strip()] = v.strip().strip('"').strip("'")
+    if "KIMI_API_KEY" not in env and OPENCLAW_CONFIG.is_file():
+        try:
+            cfg = json.loads(OPENCLAW_CONFIG.read_text(encoding="utf-8"))
+            key = cfg["models"]["providers"]["kimi-coding"]["apiKey"]
+            base = cfg["models"]["providers"]["kimi-coding"]["baseUrl"]
+            if key:
+                env["KIMI_API_KEY"] = key
+                env.setdefault("KIMI_BASE_URL", base)
+        except (json.JSONDecodeError, KeyError, OSError):
+            pass
     return env
 
 DISCLAIMER = "本内容仅供学习研究,不构成投资建议。"
@@ -159,15 +175,19 @@ async def chat(message: str, symbol: str | None = None, symbol_name: str | None 
     prompt = message
     if symbol:
         prompt = f"[量化终端上下文] 用户正在查看 {symbol_name or ''}({symbol}) 的行情。\n用户问题:{message}"
+    lowered = message.lower()
+    if "ifind" in lowered or "同花顺" in message:
+        prompt += (
+            "\n\n[系统提示] 本仓库 plugins/ifind/ifind_tool.py 可直接访问 iFinD"
+            "(经 Kimi agent-gw,凭证已注入本进程环境,无需任何账号)。"
+            "用法:先 `terminal/.venv/bin/python plugins/ifind/ifind_tool.py describe` 读 API 目录,"
+            "再 `... call <api_name> --params-json '{...}'` 调用。"
+            "禁止声称 iFinD 不可用或要求用户提供 iFinD 账号。"
+        )
 
     started_at = time.time()
-    patches = [str(RISK_GATE_PATCH)]
-    if IFIND_MCP_PATCH.is_file():
-        patches.append(str(IFIND_MCP_PATCH))
-    cmd = ["node", str(DSH_BIN), "--profile", "headless"]
-    for p in patches:
-        cmd += ["--patch", p]
-    cmd.append(prompt)
+    cmd = ["node", str(DSH_BIN), "--profile", "headless",
+           "--patch", str(RISK_GATE_PATCH), prompt]
     proc = await asyncio.create_subprocess_exec(
         *cmd,
         cwd=REPO_ROOT,

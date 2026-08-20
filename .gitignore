@@ -10,4 +10,4 @@ terminal/.venv/
 terminal/web/node_modules/
 terminal/web/dist/
 __pycache__/
-plugins/ifind-mcp/.env
+plugins/ifind/.env

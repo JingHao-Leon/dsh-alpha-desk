@@ -1,6 +1,6 @@
 ---
 name: alpha-desk
-description: AI 投研工作台——在 deepseek-harness 里编排 virattt/ai-hedge-fund（美股多策略 AI 基金，支持回测）与本地 A股/港股技术分析技能，配合 risk-gate 风控钩子、定时盯盘与投资记忆，完成"分析→回测→解读→复盘"的完整投研闭环。当用户要求分析美股、运行 AI 基金、回测策略、比较投资大师观点、生成投研报告、定时盯盘或复盘投资假设时使用。触发词：AI 基金、对冲基金、回测、巴菲特、格雷厄姆、投研、美股分析、盯盘、复盘。
+description: AI 投研工作台——在 deepseek-harness 里编排 virattt/ai-hedge-fund（美股多策略 AI 基金，支持回测）、iFinD 权威数据源（经 plugins/ifind 访问，财报/公告/股东/预测/选股，A股港股美股）与本地 A股/港股技术分析技能，配合 risk-gate 风控钩子、定时盯盘与投资记忆，完成"分析→回测→解读→复盘"的完整投研闭环。当用户要求分析美股、运行 AI 基金、回测策略、比较投资大师观点、生成投研报告、定时盯盘、复盘投资假设，或查询财报/财务报表/公告/股东户数/业绩预测/智能选股/iFinD/同花顺数据时使用。触发词：AI 基金、对冲基金、回测、巴菲特、格雷厄姆、投研、美股分析、盯盘、复盘、iFinD、同花顺、股东户数、财务报表、公告、业绩预测。
 ---
 
 # Alpha Desk — AI 投研工作台
@@ -66,6 +66,25 @@ aihf mandates/deep-value-weekly.yaml --tickers AAPL,MSFT,NVDA --backtest --start
 ## 工作流三：A股/港股联动
 
 aihf 只覆盖美股。用户问 A股/港股时，改用 `stock-technical-indicators` 技能（如已安装）。两边结果可以同框对比（例："同一套价值逻辑在美股和 A股各自选出什么"），但要讲清两边引擎和数据源不同，结论不可直接互换。
+
+## 工作流三·五：iFinD 权威数据（plugins/ifind，免 iFinD 账号）
+
+需要**权威基本面/公告/股东/预测数据**时（财务报表、业务分部、股东户数、业绩预告、智能选股），用本仓库 `plugins/ifind/ifind_tool.py`——它经 Kimi agent-gw 访问同花顺 iFinD，凭证由脚本自行解析（plugins/ifind/.env 或本机 Kimi 桌面端配置），不需要用户提供任何账号，也不依赖环境变量注入。
+
+```bash
+# 1. 先读 API 目录(9 个 API 的参数、ticker 格式、覆盖范围约定)
+terminal/.venv/bin/python plugins/ifind/ifind_tool.py describe
+
+# 2. 按目录的参数约定调用(必须用 terminal/.venv/bin/python,它有 agent-gw SDK)
+terminal/.venv/bin/python plugins/ifind/ifind_tool.py call ifind_get_financial_statements \
+  --params-json '{"ticker": "600519.SH", ...}'
+```
+
+规则：
+- **必须先 describe 再 call**，参数严格按返回的目录构造（ticker 格式：A股 `600519.SH`、港股 `0001.HK`、美股 `AAPL.O`）。
+- 公告与业绩预测仅覆盖 A 股；调用失败时如实报告错误，禁止编造财务数字。
+- 引用数据时带上报告期/币种/数据口径限定语。
+- 与 gtimg 行情的分工：盘中报价/K线走行情网关，基本面与公告走 ifind。
 
 ## 工作流四：定时盯盘（cron）
 
