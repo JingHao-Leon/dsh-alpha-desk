@@ -285,3 +285,14 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-size: 12px; color: var(--dim);
   margin-top: 3px; line-height: 1.5;
 }
+
+/* fundamentals (iFinD) */
+.fund-biz {
+  padding: 6px 12px;
+  font-size: 11px;
+  color: var(--dim);
+  line-height: 1.5;
+  border-bottom: 1px solid #161e28;
+}
+.quote-cell span { white-space: nowrap; }
+.quote-cell b { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

@@ -11,3 +11,4 @@ terminal/web/node_modules/
 terminal/web/dist/
 __pycache__/
 plugins/ifind/.env
+terminal/backend/app/fundamentals_cache/

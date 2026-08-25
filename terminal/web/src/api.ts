@@ -88,6 +88,32 @@ export interface ExpertsResponse {
   asOf?: string
 }
 
+// -- fundamentals (iFinD) ------------------------------------------------------
+export interface Fundamentals {
+  ticker: string
+  source: string
+  reportPeriod?: string | null
+  profile: {
+    mainBusiness?: string
+    products?: string
+    totalShares?: number | null
+    controller?: string
+    controllerType?: string
+    website?: string
+  }
+  profitability?: {
+    roe?: number | null
+    grossMargin?: number | null
+    netMargin?: number | null
+    eps?: number | null
+    bps?: number | null
+  } | null
+  growth?: {
+    revenueYoY?: number | null
+    netProfitYoY?: number | null
+  } | null
+}
+
 export async function fetchWatchlist(): Promise<Quote[]> {
   const r = await fetch(`${API}/api/watchlist`)
   if (!r.ok) throw new Error(`watchlist ${r.status}`)
@@ -97,6 +123,12 @@ export async function fetchWatchlist(): Promise<Quote[]> {
 export async function fetchKline(symbol: string, period: string, count = 200): Promise<Bar[]> {
   const r = await fetch(`${API}/api/kline?symbol=${symbol}&period=${period}&count=${count}`)
   if (!r.ok) throw new Error(`kline ${r.status}`)
+  return r.json()
+}
+
+export async function fetchFundamentals(symbol: string, kind = 'stock'): Promise<Fundamentals> {
+  const r = await fetch(`${API}/api/fundamentals/${symbol}?kind=${kind}`)
+  if (!r.ok) throw new Error(`fundamentals ${r.status}`)
   return r.json()
 }
 

@@ -9,7 +9,7 @@ from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from . import agent_bridge, experts
+from . import agent_bridge, experts, fundamentals
 from .market import MarketData
 
 logging.basicConfig(level=logging.INFO)
@@ -76,6 +76,17 @@ async def get_kline(symbol: str, period: str = "daily", count: int = 200) -> lis
         return await market.get_kline(symbol, period, count)
     except Exception as exc:
         raise HTTPException(502, f"K线数据获取失败: {exc}")
+
+
+@app.get("/api/fundamentals/{symbol}")
+async def get_fundamentals(symbol: str, kind: str = "stock") -> dict:
+    try:
+        result = await fundamentals.get_fundamentals(symbol, kind)
+    except RuntimeError as exc:
+        raise HTTPException(502, f"iFinD 基本面获取失败: {exc}")
+    if result is None:
+        raise HTTPException(404, f"{symbol} 非股票,无基本面数据")
+    return result
 
 
 # -- agent chat ---------------------------------------------------------------

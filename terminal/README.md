@@ -18,8 +18,12 @@ FastAPI terminal/backend (python3.11 venv)
    │                       回复附带 trace:逐步 reasoning/tool-call/usage,来自 dsh 自身 session jsonl)
    ├── experts.py         aihf 专家团:多大师模型信号+理由,结构化返回;
    │                      未配 FINANCIAL_DATASETS_API_KEY/LLM key 时返回内置示例(demo=true 显式标注)
+   ├── fundamentals.py    iFinD 基本面(agent-gw 直调,7 天磁盘缓存保护月度额度;
+   │                      凭证解析同 ../plugins/ifind,报告期自动回退到最新已披露期)
    └── watchlist.json     自选清单
 ```
+
+另见 [../plugins/ifind](../plugins/ifind/README.md):agent 对话里的 iFinD 数据源(财报/公告/股东/预测/选股),经 Kimi agent-gw,免 iFinD 账号。
 
 为什么数据层直接调腾讯端点而不是 akshare 的东财接口:东财 `push2.eastmoney.com` 在部分网络下间歇性不可达,`qt.gtimg.cn` 稳定且支持股票+指数混合批量报价(一次请求刷完整个自选)。
 
@@ -50,6 +54,7 @@ npm run dev        # 打开终端里显示的 localhost 地址
 | `WS /ws/quotes` | 15s 推送自选快照 |
 | `POST /api/chat` `{message, symbol?, symbol_name?}` | dsh agent 对话(超时 240s),返回 `{reply, trace}` |
 | `POST /api/experts` `{tickers}` | 召开专家团(aihf 单周期,超时 600s;缺 key 时返回示例数据) |
+| `GET /api/fundamentals/{symbol}?kind=stock` | iFinD 基本面(档案/盈利能力/成长,7 天缓存;指数返回 404) |
 
 ## 产物
 

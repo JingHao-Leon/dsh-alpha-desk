@@ -25,6 +25,7 @@ Alpha Desk 用 dsh 的四个扩展点各解决一个问题：
 | 合规边界 | hook（`tools/pre-execute` waterfall） | [`plugins/risk-gate`](plugins/risk-gate/index.ts)：实盘下单/券商 API/凭证访问在分发前被单调拒绝 |
 | 持续性 | cron + memory | SKILL.md 工作流四/五：盘前扫描、周末复盘、假设台账 |
 | 多市场 | skill 组合 | 美股走 aihf；A股/港股联动 `stock-technical-indicators` 技能 |
+| 权威数据 | agent 工具链 | [`plugins/ifind`](plugins/ifind/README.md)：iFinD 数据源（财报/公告/股东/预测/选股），经 Kimi agent-gw，免 iFinD 账号，凭证自解析 |
 
 ## 架构
 
@@ -91,8 +92,10 @@ dsh-alpha-desk/
 │   ├── fundamental-ls-market-neutral.yaml #  五大师多空市场中性，月频
 │   └── inflections-daily.yaml            #   宏观拐点（德鲁肯米勒+林奇）日频
 ├── plugins/risk-gate/                    # dsh 风控钩子插件（tools/pre-execute）
+├── plugins/ifind/                        # iFinD 数据源（经 Kimi agent-gw，免 iFinD 账号）
 ├── terminal/                             # 同花顺风格量化终端（vnpy 数据层 + FastAPI + React）
 │   ├── backend/app/gateway_gtimg.py      #   腾讯行情 → vnpy BarData/TickData
+│   ├── backend/app/fundamentals.py       #   iFinD 基本面（agent-gw 直调 + 7 天缓存）
 │   ├── backend/app/agent_bridge.py       #   dsh headless 桥（risk-gate 已挂载）
 │   └── web/                              #   React + klinecharts 终端 UI
 ├── records/                              # 运行记录落盘目录（git 忽略）
