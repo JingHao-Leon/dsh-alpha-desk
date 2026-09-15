@@ -1,12 +1,28 @@
-# Alpha Desk — an AI Investment Desk for deepseek-harness
+<div align="center">
+
+# Alpha Desk
+
+**Turn a deepseek-harness (dsh) session into a compliance-first, reproducible, accountable AI investment desk**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11+-339933?logo=python&logoColor=white)](terminal/backend/requirements.txt)
+[![dsh Skill Pack](https://img.shields.io/badge/deepseek--harness-skill_pack-4D6BFF)](https://github.com/deepseek-ai/deepseek-harness)
+[![Engine: ai-hedge-fund](https://img.shields.io/badge/Engine-ai--hedge--fund-black)](https://github.com/virattt/ai-hedge-fund)
+[![Terminal: React · klinecharts · FastAPI](https://img.shields.io/badge/Terminal-React_·_klinecharts_·_FastAPI-61DAFB?logo=react&logoColor=black)](terminal/README.md)
+[![Demo video](https://img.shields.io/badge/Demo-90s_video-blueviolet)](terminal/demo/alpha-desk-terminal-demo.mp4)
 
 English | [中文](README.md)
 
+</div>
+
+> [!WARNING]
+> **For education and research only. Not investment advice. This project does not execute real trades for now.** The risk-gate architecturally denies all live orders, brokerage APIs and credential access.
+
 > Turns a [deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) (dsh) session into an investment research desk:
 > multi-strategy AI fund backtesting + China A/H-share technical analysis + a compliance gate + scheduled monitoring + investment memory.
-> This repo is an installable dsh **skill pack**, and a complete demonstration of dsh's microkernel extension points (skill / hook / cron / memory).
+> This repo is an installable dsh **skill pack** (AI hedge fund / quant backtesting / agent risk control), and a complete demonstration of dsh's microkernel extension points (skill / hook / cron / memory).
 
-**Disclaimer: for education and research only. Not investment advice. This project does not execute real trades for now.**
+![alpha-desk quant terminal](terminal/screenshot.png)
 
 ## What it solves
 
@@ -25,6 +41,7 @@ Alpha Desk maps one dsh extension point to each problem:
 | Compliance boundary | hook (`tools/pre-execute` waterfall) | [`plugins/risk-gate`](plugins/risk-gate/index.ts): live orders, brokerage APIs and credential access are denied before dispatch |
 | Persistence | cron + memory | SKILL.md workflows 4/5: pre-market scans, weekend reviews, a thesis ledger |
 | Multi-market | skill composition | US via aihf; A/H-shares via the `stock-technical-indicators` skill |
+| Authoritative data | agent tooling | [`plugins/ifind`](plugins/ifind/README.md): iFinD fundamentals (filings / announcements / shareholders / forecasts / screener) via Kimi agent-gw — no iFinD account needed |
 
 ## Architecture
 
@@ -45,6 +62,12 @@ deepseek-harness agent ── inject ──► skill/SKILL.md (this repo)
 ```
 
 The underlying engine [ai-hedge-fund](https://github.com/virattt/ai-hedge-fund) (MIT) makes the fund a declarative mandate: strategy pods, investor alpha models (Graham / Buffett / Munger / Lynch / Druckenmiller + a quant PEAD), risk limits and rebalance cadence are YAML data; tickers are a run-time `--tickers` input. aihf natively supports **DeepSeek as its reasoning LLM** — a DeepSeek model inside the DeepSeek harness driving an AI fund, one stack end to end.
+
+## Quant terminal (terminal/)
+
+The agent capabilities above, packaged into a Tonghuashun-style web terminal — real-time A-share watchlist quotes, K-lines, an expert-panel signals view, and a chat pane where every reply passes the risk-gate and ships with a step-by-step trace (reasoning / tool-calls / token usage). The data layer wraps Tencent's free quotes (minute-level delay) in **vnpy**'s BarData/TickData object model and Gateway semantics — a drop-in swap for CTP/SimNow later; the agent runs via `dsh --profile headless` with the risk-gate patch mounted. **Read-only research terminal: there is no order path.**
+
+📺 [90-second demo video](terminal/demo/alpha-desk-terminal-demo.mp4) · setup & API docs in [terminal/README.md](terminal/README.md)
 
 ## Quick start
 
@@ -83,6 +106,12 @@ dsh-alpha-desk/
 │   ├── fundamental-ls-market-neutral.yaml #  five-persona market-neutral L/S, monthly
 │   └── inflections-daily.yaml            #   macro inflections (Druckenmiller + Lynch), daily
 ├── plugins/risk-gate/                    # dsh compliance hook plugin (tools/pre-execute)
+├── plugins/ifind/                        # iFinD data source (via Kimi agent-gw, no iFinD account)
+├── terminal/                             # quant terminal (vnpy data layer + FastAPI + React)
+│   ├── backend/app/gateway_gtimg.py      #   Tencent quotes → vnpy BarData/TickData
+│   ├── backend/app/fundamentals.py       #   iFinD fundamentals (agent-gw + 7-day cache)
+│   ├── backend/app/agent_bridge.py       #   dsh headless bridge (risk-gate mounted)
+│   └── web/                              #   React + klinecharts terminal UI
 ├── records/                              # persisted run records (git-ignored)
 └── LICENSE                               # MIT
 ```
@@ -97,8 +126,41 @@ dsh-alpha-desk/
 | Thesis accountability | memory + persisted records, auto review at expiry | Build your own state layer | None |
 | Hot reload / ecosystem | dsh plugin HMR; MCP/skill ecosystem reuse | — | — |
 
-## Credits and boundaries
+## FAQ
 
-- Engine: [virattt/ai-hedge-fund](https://github.com/virattt/ai-hedge-fund) (MIT) — this project is an orchestration layer only and does not fork its code; its data source (Financial Datasets) mainly covers US equities
+**Q: Can Alpha Desk place real trades for me?**
+
+No — and that is an architectural guarantee, not a prompt convention: [risk-gate](plugins/risk-gate/index.ts) sits on dsh's `tools/pre-execute` waterfall and monotonically denies live orders, brokerage APIs and credential file access before dispatch. "Never touches real money" is the design goal of this repo.
+
+**Q: Can I use it without dsh?**
+
+Partially. The `mandates/*.yaml` files are standard aihf mandates — `aihf mandates/deep-value-weekly.yaml --tickers AAPL,MSFT --backtest` runs on its own. The skill orchestration, cron monitoring and thesis-memory layers require deepseek-harness.
+
+**Q: Does it backtest A-shares / HK shares?**
+
+US equities run on the aihf engine (Financial Datasets data). A/H-shares currently get quotes + technical analysis (Tencent quotes + the `stock-technical-indicators` skill) and iFinD fundamental lookups ([plugins/ifind](plugins/ifind/README.md)); A/H fundamental backtesting is not available yet — limited by free data sources.
+
+**Q: Is the data real-time?**
+
+Tencent free quotes at minute-level delay; iFinD fundamentals go through the Kimi agent-gw with a 7-day disk cache to protect the monthly quota. Neither is a paid Level-1/Level-2 feed.
+
+**Q: Can I trade on the backtest results?**
+
+No. Backtests come from real data and real computation, fully persisted and reproducible — but past performance never guarantees future returns. All output here is for learning and research only.
+
+## Limitations
+
+- **No live-trading path**: risk-gate denies live orders / brokerage / credentials, and this project does not execute real trades — by design, not as a TODO
+- **US-centric data**: the aihf engine's Financial Datasets mainly covers US equities; A/H fundamental backtesting is missing
+- **Minute-level quote delay**: Tencent's free endpoint has no SLA or availability guarantee
+- **iFinD is not an official connection**: relayed via the Kimi agent-gw, subject to quota and stability
+- **Backtests ≠ future returns**: all strategy output is for learning and research only
+
+## Credits
+
+- Engine: [virattt/ai-hedge-fund](https://github.com/virattt/ai-hedge-fund) (MIT) — this project is an orchestration layer only and does not fork its code
 - Runtime: [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)
-- A/H-share data is out of scope for the engine; backtests do not predict future returns; this project does not execute real trades for now
+
+## License
+
+[MIT](LICENSE) © 2026 JingHao-Leon

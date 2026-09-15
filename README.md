@@ -1,12 +1,28 @@
-# Alpha Desk — deepseek-harness 的 AI 投研工作台
+<div align="center">
+
+# Alpha Desk
+
+**把 deepseek-harness（dsh）会话变成合规、可复现、可追责的 AI 投研工作台**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11+-339933?logo=python&logoColor=white)](terminal/backend/requirements.txt)
+[![dsh Skill Pack](https://img.shields.io/badge/deepseek--harness-skill_pack-4D6BFF)](https://github.com/deepseek-ai/deepseek-harness)
+[![Engine: ai-hedge-fund](https://img.shields.io/badge/Engine-ai--hedge--fund-black)](https://github.com/virattt/ai-hedge-fund)
+[![Terminal: React · klinecharts · FastAPI](https://img.shields.io/badge/Terminal-React_·_klinecharts_·_FastAPI-61DAFB?logo=react&logoColor=black)](terminal/README.md)
+[![演示视频](https://img.shields.io/badge/演示视频-90s_demo-blueviolet)](terminal/demo/alpha-desk-terminal-demo.mp4)
 
 [English](README.en.md) | 中文
 
+</div>
+
+> [!WARNING]
+> **本项目仅供学习研究，不构成投资建议，暂不执行真实交易。** risk-gate 在架构层拒绝一切实盘下单 / 券商 API / 凭证访问。
+
 > 把 [deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)（dsh）会话变成一个投研交易台：
 > 多策略 AI 基金回测 + A股/港股技术分析 + 风控合规门禁 + 定时盯盘 + 投资记忆复盘。
-> 本仓库是一个可直接安装的 dsh **skill 包**，也是 dsh 微内核扩展点（skill / hook / cron / memory）的完整示范。
+> 本仓库是一个可直接安装的 dsh **skill 包**（AI 投研 / AI hedge fund / 量化回测 / Agent 风控），也是 dsh 微内核扩展点（skill / hook / cron / memory）的完整示范。
 
-**免责声明：本项目仅供学习研究，不构成投资建议，暂不执行真实交易。**
+![alpha-desk 量化终端](terminal/screenshot.png)
 
 ## 它解决什么问题
 
@@ -17,7 +33,7 @@
 3. **持续性** —— 投资观点要被记录、被定时检验、被事后追责
 4. **多市场** —— 美股、A股、港股各一套数据与逻辑
 
-Alpha Desk 用 dsh 的四个扩展点各解决一个问题：
+Alpha Desk 用 dsh 的扩展点各解决一个问题：
 
 | 问题 | dsh 扩展点 | 本仓库实现 |
 |---|---|---|
@@ -49,11 +65,9 @@ deepseek-harness agent ── inject ──► skill/SKILL.md（本仓库）
 
 ## 量化终端（terminal/）
 
-把上面的 agent 能力装进一个同花顺风格的 Web 终端——A股自选实时报价、K线、右栏明细，中间是对话区,所有回复都过 risk-gate:
+把上面的 agent 能力装进一个同花顺风格的 Web 终端——A股自选实时报价（红涨绿跌）、K线、专家团信号面板、右栏明细，中间是对话区，所有回复都过 risk-gate 并附带逐步运行轨迹（reasoning / tool-call / token 计量）。数据层用 **vnpy** 的 BarData/TickData 对象模型与 Gateway 语义封装腾讯免费行情（分钟级延迟），未来换 CTP/SimNow 是 drop-in 替换；agent 走 `dsh --profile headless` + risk-gate patch。**只读研究终端，没有下单路径。**
 
-![alpha-desk 量化终端](terminal/screenshot.png)
-
-数据层用 **vnpy** 的 BarData/TickData 对象模型与 Gateway 语义封装腾讯免费行情(分钟级延迟),未来换 CTP/SimNow 是 drop-in 替换;agent 走 `dsh --profile headless` + risk-gate patch。**只读研究终端,没有下单路径。** 安装与 API 详见 [terminal/README.md](terminal/README.md)。
+📺 [90 秒演示视频](terminal/demo/alpha-desk-terminal-demo.mp4) · 安装与 API 详见 [terminal/README.md](terminal/README.md)
 
 ## 快速开始
 
@@ -112,8 +126,41 @@ dsh-alpha-desk/
 | 观点追责 | memory + 落盘记录，到期自动复盘 | 自行实现状态层 | 无 |
 | 热重载/生态 | dsh 插件 HMR，MCP/skill 生态复用 | — | — |
 
-## 致谢与边界
+## FAQ
 
-- 引擎：[virattt/ai-hedge-fund](https://github.com/virattt/ai-hedge-fund)（MIT），本项目只做编排层，不 fork 其代码；其数据源 Financial Datasets 主要覆盖美股
+**Q：Alpha Desk 能帮我实盘下单吗？**
+
+不能，而且是架构保证而非提示词约定：[risk-gate](plugins/risk-gate/index.ts) 挂在 dsh 的 `tools/pre-execute` 瀑布上，对实盘下单、券商 API、凭证文件访问做单调拒绝，工具调用在分发前就被拦截。"永远碰不到真钱"是本仓库的设计目标。
+
+**Q：不装 dsh 能用吗？**
+
+部分能。`mandates/*.yaml` 是标准 aihf 委托书，`aihf mandates/deep-value-weekly.yaml --tickers AAPL,MSFT --backtest` 单独即可跑通回测；skill 编排、cron 定时盯盘、投资记忆台账这三层需要 deepseek-harness。
+
+**Q：支持 A股/港股回测吗？**
+
+美股走 aihf 引擎（数据源 Financial Datasets）。A股/港股目前是行情报价 + 技术分析（腾讯行情 + `stock-technical-indicators` 技能）+ iFinD 基本面查询（[plugins/ifind](plugins/ifind/README.md)），暂无 A/H 股基本面回测——受免费数据源限制。
+
+**Q：数据是实时的吗？**
+
+腾讯免费行情，分钟级延迟；iFinD 基本面经 Kimi agent-gw 直调并做 7 天磁盘缓存以保护月度额度。都不是付费 Level-1/Level-2 行情通道。
+
+**Q：回测结果可以直接当投资依据吗？**
+
+不可以。回测来自真实数据与真实计算、全部落盘可复现，但历史表现不构成未来收益保证；本仓库所有输出仅供学习研究。
+
+## 局限与边界（Limitations）
+
+- **无实盘路径**：risk-gate 拒绝实盘/券商/凭证访问，本项目暂不执行真实交易——这是设计目标，不是待办事项
+- **数据源偏美股**：aihf 引擎的 Financial Datasets 主要覆盖美股；A股/港股缺基本面回测
+- **行情分钟级延迟**：腾讯免费接口无 SLA，不保证可用性
+- **iFinD 非官方直连**：经 Kimi agent-gw 中转，受额度与稳定性约束
+- **回测 ≠ 未来收益**：所有策略输出仅供学习研究
+
+## 致谢
+
+- 引擎：[virattt/ai-hedge-fund](https://github.com/virattt/ai-hedge-fund)（MIT），本项目只做编排层，不 fork 其代码
 - 运行时：[deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)
-- 数据源覆盖不了 A股/港股；回测结果不代表未来收益；本项目暂不执行真实交易
+
+## License
+
+[MIT](LICENSE) © 2026 JingHao-Leon
