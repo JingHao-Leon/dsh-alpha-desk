@@ -39,7 +39,7 @@ Alpha Desk 用 dsh 的扩展点各解决一个问题：
 |---|---|---|
 | 可复现引擎 | skill（`section` + `inject()`） | [`skill/SKILL.md`](skill/SKILL.md)：编排 [virattt/ai-hedge-fund](https://github.com/virattt/ai-hedge-fund) CLI，stdout 纯 JSON，全部落盘 |
 | 合规边界 | hook（`tools/pre-execute` waterfall） | [`plugins/risk-gate`](plugins/risk-gate/index.ts)：实盘下单/券商 API/凭证访问在分发前被单调拒绝 |
-| 持续性 | cron + memory | SKILL.md 工作流四/五：盘前扫描、周末复盘、假设台账 |
+| 持续性 | cron + memory | SKILL.md 工作流四/五/六：盘前扫描、公开预测台账、假设复盘 |
 | 多市场 | skill 组合 | 美股走 aihf；A股/港股联动 `stock-technical-indicators` 技能 |
 | 权威数据 | agent 工具链 | [`plugins/ifind`](plugins/ifind/README.md)：iFinD 数据源（财报/公告/股东/预测/选股），经 Kimi agent-gw，免 iFinD 账号，凭证自解析 |
 
@@ -68,6 +68,24 @@ deepseek-harness agent ── inject ──► skill/SKILL.md（本仓库）
 把上面的 agent 能力装进一个同花顺风格的 Web 终端——A股自选实时报价（红涨绿跌）、K线、专家团信号面板、右栏明细，中间是对话区，所有回复都过 risk-gate 并附带逐步运行轨迹（reasoning / tool-call / token 计量）。数据层用 **vnpy** 的 BarData/TickData 对象模型与 Gateway 语义封装腾讯免费行情（分钟级延迟），未来换 CTP/SimNow 是 drop-in 替换；agent 走 `dsh --profile headless` + risk-gate patch。**只读研究终端，没有下单路径。**
 
 📺 [90 秒演示视频](terminal/demo/alpha-desk-terminal-demo.mp4) · 安装与 API 详见 [terminal/README.md](terminal/README.md)
+
+## 公开预测台账（ledger/）
+
+第三方"AI 预测竞技场"类平台的共同代价是数据许可：你的预测和推理文本被永久授权、可进入他人训练集。本仓库自带替代方案——**公开预测台账**：观点在给出的瞬间落盘为结构化 JSON 并 git commit，到期日用真实收盘价**机械结算**（规则固定、无人工裁量），胜率与置信度校准由脚本汇总进 [ledger/stats.md](ledger/stats.md)。
+
+- **可验证性靠 git**：预测先于结果入库，commit 序列即时间戳证据；诚实边界见 [ledger/README.md](ledger/README.md)（本机时间可改，尽早 push 才构成公开证据）
+- **结算规则透明**：基线 = `as_of` 后首个交易日收盘，终值 = `horizon_end` 当日（或之前最近交易日）收盘，±0.5% 死区外按方向判 hit/miss，数据缺失记 `void` 不计分
+- **数据源免费无 key**：腾讯 gtimg 日K，A股（前复权）/港股/美股三市场
+- **从零开始，拒绝回填**：台账 2026-09-23 起运行，战绩只能来自真实结算累积——一条过程全公开的空白台账，比任何无法审计的"历史胜率"值钱
+
+```bash
+python3 tools/ledger.py new --symbol 600519 --market cn --direction long \
+  --confidence 0.6 --horizon 2026-10-23 --rationale "……"
+python3 tools/ledger.py settle              # 结算所有到期预测
+python3 tools/ledger.py report --write      # 重新生成 ledger/stats.md
+```
+
+结算引擎已用真实行情验证（演练命令可复现）：`LEDGER_DIR` 指向临时目录后，对茅台 2026-09-01→09-18 的演练做多（基线 1299.56 → 1257.12，-3.27%，miss）、AAPL 同窗口演练做空（325.13 → 336.13，+3.38%，miss），两条均被如实记为 miss——机制不粉饰亏损。单元测试：`python3 tests/test_ledger.py`（20 项，离线）。
 
 ## 快速开始
 
@@ -107,6 +125,9 @@ dsh-alpha-desk/
 │   └── inflections-daily.yaml            #   宏观拐点（德鲁肯米勒+林奇）日频
 ├── plugins/risk-gate/                    # dsh 风控钩子插件（tools/pre-execute）
 ├── plugins/ifind/                        # iFinD 数据源（经 Kimi agent-gw，免 iFinD 账号）
+├── ledger/                               # 公开预测台账（预测 JSON + 结算记录 + stats.md）
+├── tools/ledger.py                       # 台账 CLI：登记 / 机械结算 / 战绩汇总（仅标准库）
+├── tests/test_ledger.py                  # 结算规则离线测试
 ├── terminal/                             # 同花顺风格量化终端（vnpy 数据层 + FastAPI + React）
 │   ├── backend/app/gateway_gtimg.py      #   腾讯行情 → vnpy BarData/TickData
 │   ├── backend/app/fundamentals.py       #   iFinD 基本面（agent-gw 直调 + 7 天缓存）
@@ -123,7 +144,7 @@ dsh-alpha-desk/
 | 合规边界 | 架构级：hook 在工具分发前单调拒绝 | 需自己包一层执行器 | 仅靠提示词，模型可绕过 |
 | 投研引擎 | 成熟开源基金引擎，JSON 可复现 | 自行拼装 | 模型即兴生成，不可复现 |
 | 定时盯盘 | dsh cron 扩展点，声明式 | 需外部调度器 | 无 |
-| 观点追责 | memory + 落盘记录，到期自动复盘 | 自行实现状态层 | 无 |
+| 观点追责 | memory + 落盘记录，到期自动复盘；公开预测台账（git 时间戳 + 机械结算 + 校准曲线） | 自行实现状态层 | 无 |
 | 热重载/生态 | dsh 插件 HMR，MCP/skill 生态复用 | — | — |
 
 ## FAQ

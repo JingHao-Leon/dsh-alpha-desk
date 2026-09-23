@@ -95,7 +95,25 @@ terminal/.venv/bin/python plugins/ifind/ifind_tool.py call ifind_get_financial_s
 
 定时任务产出的记录同样落盘 `records/`。
 
-## 工作流五：投资记忆与复盘
+## 工作流五·五：公开预测台账（ledger/，对外可验证）
+
+每次给出**可结算的方向性观点**（某标的在某时间窗内看多/看空/横盘）时，除了写进记忆，还要入台账：
+
+```bash
+python3 tools/ledger.py new --symbol <代码> --market cn|hk|us --direction long|short|neutral \
+  --confidence <0~1> --horizon <YYYY-MM-DD> --rationale "<理由，必填>" \
+  --source "workflow:<来源>" [--invalidate-if "<失效条件>"]
+```
+
+规则：
+- `rationale` 必填且要具体（依据什么数据/逻辑）——没有理由的观点不入台账。
+- `confidence` 是自评置信度，事后会做校准统计（声明 0.7 的预测是否 70% 命中），**不要拍脑袋给 0.9**。
+- `new` 会自动 git commit；**尽快 push**（公开时间戳才成立）。commit 后不可改写已入库的预测。
+- 到期后（或用户要求复盘时）：`python3 tools/ledger.py settle`，然后 `python3 tools/ledger.py report --write` 更新 stats.md，并把结果 commit + push。
+- 结算是机械的（收盘价 + 死区 + 方向），**禁止人工改判定结果**；数据缺失会记 void 不计分。
+- 台账战绩从零累积、拒绝回填：如实展示 miss 与低胜率，这比虚假战绩值钱。
+
+## 工作流六：投资记忆与复盘
 
 - 每次给出一个观点时，把"假设"写进记忆：标的、方向、理由、预期时间窗、失效条件。
 - 复盘时取出历史假设，对照 `records/` 里的实际信号与走势，逐条判定对错，并总结哪类假设胜率高。
